@@ -7,6 +7,15 @@ import java.util.List;
  */
 public class ClassifyBean {
 
+    @Override
+    public String toString() {
+        return "ClassifyBean{" +
+                "errno=" + errno +
+                ", msg='" + msg + '\'' +
+                ", categories=" + categories +
+                '}';
+    }
+
     /**
      * errno : 0
      * msg : success
@@ -100,6 +109,15 @@ public class ClassifyBean {
             public int getSubcat_id() {
                 return subcat_id;
             }
+        }
+
+        @Override
+        public String toString() {
+            return "CategoriesEntity{" +
+                    "cat_id=" + cat_id +
+                    ", cat_name='" + cat_name + '\'' +
+                    ", subcategories=" + subcategories +
+                    '}';
         }
     }
 }

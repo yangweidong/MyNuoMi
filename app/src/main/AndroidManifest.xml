@@ -31,7 +31,8 @@
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ClassifyActivity" />
-        <activity android:name=".test.TestActivity"></activity>
+        <activity android:name=".test.TestActivity" />
+        <activity android:name=".test.TestActivit"></activity>
     </application>
 
 </manifest>

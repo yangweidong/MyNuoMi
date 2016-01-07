@@ -1,11 +1,13 @@
 package com.onenews.bean;
 
+import com.onenews.test.FatherItem;
+
 import java.util.List;
 
 /**
  * Created by yangweidong on 15/12/31.
  */
-public class CityBean {
+public class CityBean extends FatherItem {
 
 
     private int errno;
