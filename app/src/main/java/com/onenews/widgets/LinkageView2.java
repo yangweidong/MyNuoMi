@@ -12,6 +12,7 @@ import com.onenews.bean.CityBean;
 import com.onenews.test.ChildItem;
 import com.onenews.test.FatherItem;
 import com.onenews.test.LeftAdapter;
+import com.onenews.test.LeftAdapter2;
 import com.onenews.test.RightAdapter;
 import com.onenews.utils.L;
 
@@ -39,7 +40,7 @@ public class LinkageView2 extends LinearLayout {
     RecyclerView left;
     RecyclerView right;
 
-    LeftAdapter mLeftAdapter;
+    LeftAdapter2 mLeftAdapter;
     RightAdapter mRightAdapter;
 
     OnRightItemClickCallback mOnRightItemClickCallback;
@@ -78,22 +79,22 @@ public class LinkageView2 extends LinearLayout {
         right.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
 
 
-        mLeftAdapter = new LeftAdapter(context, mLeftItems);
+        mLeftAdapter = new LeftAdapter2(context, mLeftItems);
         mRightAdapter = new RightAdapter(context, mRightItems);
 
-        mLeftAdapter.setOnItemClickListener(new LeftAdapter.MyItemClickListener() {
+        mLeftAdapter.setOnItemClickListener(new LeftAdapter2.MyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                FatherItem fatherItem = mLeftItems.get(postion);
-                mRightItems.clear();
-
-                mRightItems.addAll(fatherItem.getChildItems());
-                mRightAdapter.notifyDataSetChanged();
+//                FatherItem fatherItem = mLeftItems.get(postion);
+//                mRightItems.clear();
+//
+//                mRightItems.addAll(fatherItem.getChildItems());
+//                mRightAdapter.notifyDataSetChanged();
             }
         });
 
         left.setAdapter(mLeftAdapter);
-        right.setAdapter(mRightAdapter);
+
 
 
         mRightAdapter.setOnItemClickListener(new RightAdapter.MyItemClickListener() {
@@ -102,6 +103,7 @@ public class LinkageView2 extends LinearLayout {
                 mOnRightItemClickCallback.onItemClick(mRightItems.get(postion), postion);
             }
         });
+        right.setAdapter(mRightAdapter);
     }
 
     List<FatherItem> mLeftItems = new ArrayList<>();
