@@ -1,11 +1,13 @@
 package com.onenews.bean;
 
+import com.onenews.test.ChildItem;
+
 import java.util.List;
 
 /**
  * Created by yangweidong on 16/1/4.
  */
-public class RegionBean {
+public class RegionBean extends ChildItem{
 
 
     /**

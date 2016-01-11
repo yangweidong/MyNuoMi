@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import com.onenews.bean.CityBean;
 import com.onenews.test.ChildItem;
 import com.onenews.test.FatherItem;
-import com.onenews.test.LeftAdapter;
 import com.onenews.test.LeftAdapter2;
 import com.onenews.test.RightAdapter;
 import com.onenews.utils.L;
@@ -22,16 +21,16 @@ import java.util.List;
 /**
  * Created by yangweidong on 16/1/4.
  */
-public class LinkageView2 extends LinearLayout {
-    public LinkageView2(Context context) {
+public class LinkageView_Separate extends LinearLayout {
+    public LinkageView_Separate(Context context) {
         this(context, null);
     }
 
-    public LinkageView2(Context context, AttributeSet attrs) {
+    public LinkageView_Separate(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LinkageView2(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LinkageView_Separate(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -46,11 +45,11 @@ public class LinkageView2 extends LinearLayout {
     OnRightItemClickCallback mOnRightItemClickCallback;
     OnLeftItemClickCallback mLeftItemClickCallback;
 
-    public void setmLeftItemClickCallback(OnLeftItemClickCallback mLeftItemClickCallback) {
+    public void setLeftItemClickCallback(OnLeftItemClickCallback mLeftItemClickCallback) {
         this.mLeftItemClickCallback = mLeftItemClickCallback;
     }
 
-    public void setmOnRightItemClickCallback(OnRightItemClickCallback mOnRightItemClickCallback) {
+    public void setOnRightItemClickCallback(OnRightItemClickCallback mOnRightItemClickCallback) {
         this.mOnRightItemClickCallback = mOnRightItemClickCallback;
     }
 

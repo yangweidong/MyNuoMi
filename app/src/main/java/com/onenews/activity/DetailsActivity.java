@@ -1,12 +1,11 @@
-package com.onenews;
+package com.onenews.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.PaintDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,12 +14,8 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.onenews.activity.BaseActivity;
-import com.onenews.activity.DetailsActivity;
-import com.onenews.activity.ShopInfoActivity;
-import com.onenews.adapter.MainRecyclerViewAdaptr;
+import com.onenews.App;
+import com.onenews.R;
 import com.onenews.adapter.SharChdealsAdapter;
 import com.onenews.bean.CityBean;
 import com.onenews.bean.ClassifyBean;
@@ -46,7 +41,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+/**
+ * 详情界面
+ */
+public class DetailsActivity extends BaseActivity implements View.OnClickListener {
+
     RecyclerView mMainRecyclerView;
 
     SharChdealsAdapter mSharChdealsAdapter;
@@ -75,174 +74,78 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     Button cityname_bt;
 
-
-    private XRecyclerView mRecyclerView;
-    private MainRecyclerViewAdaptr mAdapter;
-    private ArrayList<String> listData;
-    private int refreshTime = 0;
-    private int times = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mRecyclerView = (XRecyclerView) this.findViewById(R.id.recyclerview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        setContentView(R.layout.activity_details);
 
-        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mRecyclerView.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
-        mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
+        mMainRecyclerView = (RecyclerView) findViewById(R.id.mainRecyclerView);
 
-        View header = LayoutInflater.from(this).inflate(R.layout.activity_main_header, (ViewGroup) findViewById(android.R.id.content), false);
+        getClassify = (Button) findViewById(R.id.getClassify);
+        getDistricts = (Button) findViewById(R.id.getDistricts);
 
 
-        header.findViewById(R.id.Cate).setOnClickListener(this);
-        header.findViewById(R.id.Film).setOnClickListener(this);
+        getDistricts.setOnClickListener(this);
+//                Intent intent = new Intent(DetailsActivity.this, ClassifyActivity.class);
+//                startActivityForResult(intent, 333);
+        getClassify.setOnClickListener(this);
 
+        mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mSharChdealsAdapter = new SharChdealsAdapter(this, mSharChdealBeens);
+        mMainRecyclerView.setAdapter(mSharChdealsAdapter);
 
-        mRecyclerView.addHeaderView(header);
-
-        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        mSharChdealsAdapter.setOnItemClickListener(new SharChdealsAdapter.MyItemClickListener() {
             @Override
-            public void onRefresh() {
-                refreshTime++;
-                times = 0;
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
+            public void onItemClick(View view, int postion) {
+                Intent intent = new Intent(DetailsActivity.this, ShopInfoActivity.class);
+                String murl = mSharChdealBeens.get(postion).getDeal_murl();
 
-                        listData.clear();
-                        for (int i = 0; i < 15; i++) {
-                            listData.add("item" + i + "after " + refreshTime + " times of refresh");
-                        }
-                        mAdapter.notifyDataSetChanged();
-                        mRecyclerView.refreshComplete();
-                    }
-
-                }, 1000);            //refresh data here
-            }
-
-            @Override
-            public void onLoadMore() {
-                if (times < 2) {
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-                            mRecyclerView.loadMoreComplete();
-                            for (int i = 0; i < 15; i++) {
-                                listData.add("item" + (i + listData.size()));
-                            }
-                            mAdapter.notifyDataSetChanged();
-                            mRecyclerView.refreshComplete();
-                        }
-                    }, 1000);
-                } else {
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-
-                            mAdapter.notifyDataSetChanged();
-                            mRecyclerView.loadMoreComplete();
-                        }
-                    }, 1000);
-                }
-                times++;
+                intent.putExtra("murl",murl);
+                startActivity(intent);
             }
         });
 
-        listData = new ArrayList<String>();
-        for (int i = 0; i < 15; i++) {
-            listData.add("item" + (i + listData.size()));
-        }
-        mAdapter = new MainRecyclerViewAdaptr(listData);
-
-        mRecyclerView.setAdapter(mAdapter);
 
 
-//        mMainRecyclerView = (RecyclerView) findViewById(R.id.mainRecyclerView);
-//
-//        getClassify = (Button) findViewById(R.id.getClassify);
-//        getDistricts = (Button) findViewById(R.id.getDistricts);
-//
-//
-//        getDistricts.setOnClickListener(this);
-//                Intent intent = new Intent(MainActivity.this, ClassifyActivity.class);
-//                startActivityForResult(intent, 333);
-//        getClassify.setOnClickListener(this);
-//
-//        mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mSharChdealsAdapter = new SharChdealsAdapter(this, mSharChdealBeens);
-//        mMainRecyclerView.setAdapter(mSharChdealsAdapter);
-//
-//        mSharChdealsAdapter.setOnItemClickListener(new SharChdealsAdapter.MyItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int postion) {
-//                Intent intent = new Intent(MainActivity.this, ShopInfoActivity.class);
-//                String murl = mSharChdealBeens.get(postion).getDeal_murl();
-//
-//                intent.putExtra("murl",murl);
-//                startActivity(intent);
-//            }
-//        });
-//
-//
-//
-//        popupWindow = new MyPopupWindow(this, ViewGroup.LayoutParams.MATCH_PARENT, (App.getScreenHeight() / 2));
+        popupWindow = new MyPopupWindow(this, ViewGroup.LayoutParams.MATCH_PARENT, (App.getScreenHeight() / 2));
 
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent;
         switch (v.getId()) {
 
-            case R.id.Cate:
-
-                intent = new Intent(MainActivity.this, DetailsActivity.class);
-                startActivity(intent);
-
-                break;
-            case R.id.Film:
-
-                intent = new Intent(MainActivity.this, DetailsActivity.class);
-                startActivity(intent);
-
-                break;
-
             case R.id.getDistricts:
+                getCitys();
 
-                intent = new Intent(MainActivity.this, DetailsActivity.class);
-                startActivity(intent);
+                linkageViewSeparate.setLeftItemClickCallback(new LinkageView_Separate.OnLeftItemClickCallback() {
+                    @Override
+                    public void onItemClick(FatherItem fatherItem, int postion) {
 
-//                getCitys();
-//
-//                linkageViewSeparate.setLeftItemClickCallback(new LinkageView_Separate.OnLeftItemClickCallback() {
-//                    @Override
-//                    public void onItemClick(FatherItem fatherItem, int postion) {
-//
-//                        String cityID = mCityDatas.get(postion).getCityId();
-//
-//                        L.i(cityID.toString() + "   ID是");
-//                        mSelectedCity_ID = cityID;
-//                        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id", cityID).build().execute(new RegionCallback());
-//
-//                    }
-//                });
-//
-//                linkageViewSeparate.setOnRightItemClickCallback(new LinkageView_Separate.OnRightItemClickCallback() {
-//                    @Override
-//                    public void onItemClick(ChildItem childItem, int postion) {
-//                        L.i("回调回调");
-//                        getDistricts.setText(childItem.getSubcat_name() + "");
-//                        mDistrict_ids = childItem.getmDistrict_ids();
-//                        if (null != popupWindow2 && popupWindow2.isShowing()) {
-//                            popupWindow2.dismiss();
-//                        }
-//
-//                    }
-//                });
+                        String cityID = mCityDatas.get(postion).getCityId();
+
+                        L.i(cityID.toString() + "   ID是");
+                        mSelectedCity_ID = cityID;
+                        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id", cityID).build().execute(new RegionCallback());
+
+                    }
+                });
+
+                linkageViewSeparate.setOnRightItemClickCallback(new LinkageView_Separate.OnRightItemClickCallback() {
+                    @Override
+                    public void onItemClick(ChildItem childItem, int postion) {
+                        L.i("回调回调");
+                        getDistricts.setText(childItem.getSubcat_name() + "");
+                        mDistrict_ids = childItem.getmDistrict_ids();
+                        if (null != popupWindow2 && popupWindow2.isShowing()) {
+                            popupWindow2.dismiss();
+                        }
+
+                    }
+                });
                 break;
 //            case R.id.getCitys:
-//                Intent intent = new Intent(MainActivity.this, CityActivity.class);
+//                Intent intent = new Intent(DetailsActivity.this, CityActivity.class);
 //                startActivityForResult(intent, 333);
 //                break;
             case R.id.getClassify:
@@ -359,25 +262,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         public void onResponse(SharChdeals response) {
 
             if (response.getErrno() == 1001) {
-                Toast.makeText(MainActivity.this, "没有数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsActivity.this, "没有数据", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (response.getErrno() == 1002) {
-                Toast.makeText(MainActivity.this, "参数错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsActivity.this, "参数错误", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (response.getErrno() == 1003) {
-                Toast.makeText(MainActivity.this, "缺失必须参数", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsActivity.this, "缺失必须参数", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (response.getErrno() == 1004) {
-                Toast.makeText(MainActivity.this, "认证未通过", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsActivity.this, "认证未通过", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (response.getErrno() == 1005) {
-                Toast.makeText(MainActivity.this, "获取数据为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsActivity.this, "获取数据为空", Toast.LENGTH_SHORT).show();
                 return;
             }
 
