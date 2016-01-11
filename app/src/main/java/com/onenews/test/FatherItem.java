@@ -31,4 +31,12 @@ public class FatherItem {
     public void setChildItems(List<ChildItem> childItems) {
         this.childItems = childItems;
     }
+
+    @Override
+    public String toString() {
+        return "FatherItem{" +
+                "mFatherName='" + mFatherName + '\'' +
+                ", childItems=" + childItems +
+                '}';
+    }
 }

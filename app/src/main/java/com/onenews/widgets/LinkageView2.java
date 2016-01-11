@@ -44,6 +44,11 @@ public class LinkageView2 extends LinearLayout {
     RightAdapter mRightAdapter;
 
     OnRightItemClickCallback mOnRightItemClickCallback;
+    OnLeftItemClickCallback mLeftItemClickCallback;
+
+    public void setmLeftItemClickCallback(OnLeftItemClickCallback mLeftItemClickCallback) {
+        this.mLeftItemClickCallback = mLeftItemClickCallback;
+    }
 
     public void setmOnRightItemClickCallback(OnRightItemClickCallback mOnRightItemClickCallback) {
         this.mOnRightItemClickCallback = mOnRightItemClickCallback;
@@ -85,11 +90,10 @@ public class LinkageView2 extends LinearLayout {
         mLeftAdapter.setOnItemClickListener(new LeftAdapter2.MyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-//                FatherItem fatherItem = mLeftItems.get(postion);
-//                mRightItems.clear();
-//
-//                mRightItems.addAll(fatherItem.getChildItems());
-//                mRightAdapter.notifyDataSetChanged();
+                if(null!= mLeftItemClickCallback){
+                    L.e("哈哈哈"+ mLeftItems.get(postion)+"  "+postion);
+                    mLeftItemClickCallback.onItemClick(mLeftItems.get(postion),postion);
+                }
             }
         });
 
@@ -113,7 +117,9 @@ public class LinkageView2 extends LinearLayout {
     public interface OnRightItemClickCallback {
         public void onItemClick(ChildItem subcategoriesEntity, int postion);
     }
-
+    public interface OnLeftItemClickCallback {
+        public void onItemClick(FatherItem subcategoriesEntity, int postion);
+    }
 
     public void setFatherData(List<CityBean> data) {
         L.i("setData");

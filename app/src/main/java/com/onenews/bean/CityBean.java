@@ -12,6 +12,18 @@ public class CityBean extends FatherItem {
 
     private int errno;
     private String msg;
+
+    private String cityId;
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+
     /**
      * city_id : 100010000
      * city_name : 北京市

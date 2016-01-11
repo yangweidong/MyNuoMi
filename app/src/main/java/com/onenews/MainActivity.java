@@ -17,6 +17,7 @@ import com.onenews.activity.CityActivity;
 import com.onenews.adapter.SharChdealsAdapter;
 import com.onenews.bean.CityBean;
 import com.onenews.bean.ClassifyBean;
+import com.onenews.bean.RegionBean;
 import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.test.ChildItem;
@@ -97,14 +98,62 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.getDistricts:
                 getCitys();
 
+                content2.setmLeftItemClickCallback(new LinkageView2.OnLeftItemClickCallback() {
+                    @Override
+                    public void onItemClick(FatherItem subcategoriesEntity, int postion) {
+
+                        String cityID = mCityDatas.get(postion).getCityId();
+
+                        L.i(cityID.toString()+"   ID是");
+                        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id", cityID).build().execute(new RegionCallback());
+
+                    }
+                });
+
                 content2.setmOnRightItemClickCallback(new LinkageView2.OnRightItemClickCallback() {
                     @Override
                     public void onItemClick(ChildItem subcategoriesEntity, int postion) {
+                        L.i("回调回调");
+                        getDistricts.setText(subcategoriesEntity.getSubcat_name()+"");
+                        if(null != popupWindow2 && popupWindow2.isShowing()){
+                            popupWindow2.dismiss();
+                        }
 
                     }
                 });
                 break;
 
+
+        }
+    }
+
+    public class RegionCallback extends Callback<RegionBean> {
+        //非UI线程，支持任何耗时操作
+        @Override
+        public RegionBean parseNetworkResponse(Response response) throws IOException {
+            String string = response.body().string();
+            RegionBean user = new Gson().fromJson(string, RegionBean.class);
+            return user;
+        }
+
+        @Override
+        public void onError(Request request, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(RegionBean response) {
+            L.e("列表数据来了"+response.toString());
+            if(null != mChildDatas){
+                mChildDatas.clear();
+            }
+            for (int i = 0; i < response.getDistricts().size(); i++) {
+                ChildItem childItem = new ChildItem();
+                childItem.setSubcat_name(response.getDistricts().get(i).getDistrict_name());
+                mChildDatas.add(childItem);
+
+            }
+            content2.setChildData(mChildDatas);
 
         }
     }
@@ -229,6 +278,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     LinkageView2 content2;
+    PopupWindow popupWindow2;
     private void getCitys() {
 
         OkHttpUtils
@@ -236,7 +286,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 .url(Api.CITYS)
                 .addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82")
                 .build()
-                .execute(new CityCallback() );
+                .execute(new CityCallback());
 
         content2 = new LinkageView2(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -246,16 +296,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         content2.setFocusableInTouchMode(true);
 
 
-        PopupWindow popupWindow = new PopupWindow(content2, ViewGroup.LayoutParams.MATCH_PARENT, (App.getScreenHeight() / 2));
+        popupWindow2 = new PopupWindow(content2, ViewGroup.LayoutParams.MATCH_PARENT, (App.getScreenHeight() / 2));
 
-        popupWindow.setFocusable(true);
-        popupWindow.setBackgroundDrawable(new PaintDrawable());
-        popupWindow.setOutsideTouchable(true);
+        popupWindow2.setFocusable(true);
+        popupWindow2.setBackgroundDrawable(new PaintDrawable());
+        popupWindow2.setOutsideTouchable(true);
 
-        popupWindow.showAsDropDown(getClassify, 0, 0);
+        popupWindow2.showAsDropDown(getClassify, 0, 0);
     }
 
     List<CityBean> mCityDatas = new ArrayList<>();
+    List<ChildItem> mChildDatas = new ArrayList<>();
 
 
     public class CityCallback extends Callback<CityBean> {
@@ -281,6 +332,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             for (int i = 0; i < response.getCities().size(); i++) {
                 CityBean cityBean = new CityBean();
                 cityBean.setmFatherName(response.getCities().get(i).getCity_name());
+                cityBean.setCityId(response.getCities().get(i).getCity_id());
                 mCityDatas.add(cityBean);
             }
 
