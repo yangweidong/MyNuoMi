@@ -1,21 +1,17 @@
 package com.onenews.activity;
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.onenews.R;
 import com.onenews.adapter.CityAdapter;
 import com.onenews.bean.CityBean;
+import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
 import com.onenews.widgets.DividerItemDecoration;
@@ -23,7 +19,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +28,28 @@ public class CityActivity extends BaseActivity {
     RecyclerView city_rl;
     List<CityBean.CitiesEntity> mCitiesEntity = new ArrayList<>();
     CityAdapter mCityAdapter;
+
+    @Override
+    protected int getLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void getData() {
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +111,26 @@ public class CityActivity extends BaseActivity {
             mCitiesEntity.addAll(response.getCities());
             mCityAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void addData(SharChdeals response) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void shoError() {
+
     }
 
 }

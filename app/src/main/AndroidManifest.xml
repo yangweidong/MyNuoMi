@@ -19,8 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
         <activity android:name=".activity.OptChannel" />
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".activity.MyIntro"
             android:theme="@style/FullscreenTheme" />
@@ -34,7 +39,7 @@
         <activity android:name=".test.TestActivity" />
         <activity android:name=".test.TestActivit" />
         <activity android:name=".activity.ShopInfoActivity" />
-        <activity android:name=".activity.DetailsActivity"></activity>
+        <activity android:name=".activity.ClassIfySearchActivSity"></activity>
     </application>
 
 </manifest>

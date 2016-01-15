@@ -10,4 +10,7 @@ public class Api {
    public static final String CLASSIFY = "http://apis.baidu.com/baidunuomi/openapi/categories";//糯米团单分类信息
    public static final String SEARCHDEALS = "http://apis.baidu.com/baidunuomi/openapi/searchdeals";//糯米团单分类信息
 
+
+   public static final String SEARCHSHOPS = "http://apis.baidu.com/baidunuomi/openapi/searchshops";//根据查询条件获取查询的商户信息
+
 }

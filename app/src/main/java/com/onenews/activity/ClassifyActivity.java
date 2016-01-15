@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.onenews.adapter.ClassIfyAdapter;
 import com.onenews.bean.ClassifyBean;
+import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
 import com.squareup.okhttp.Request;
@@ -52,6 +53,26 @@ public class ClassifyActivity extends ListActivity {
 
     }
 
+    @Override
+    protected int getLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void getData() {
+
+    }
+
 
     public class ClassifyCallback extends Callback<ClassifyBean> {
         //非UI线程，支持任何耗时操作
@@ -74,6 +95,26 @@ public class ClassifyActivity extends ListActivity {
             mClassifyBeen.addAll(response.getCategories());
             mClassIfyAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void addData(SharChdeals response) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void shoError() {
+
     }
 
 }

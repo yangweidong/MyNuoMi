@@ -1,13 +1,32 @@
 package com.onenews.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.onenews.R;
+import com.onenews.bean.SharChdeals;
 
 public class ShopInfoActivity extends BaseActivity {
+
+    @Override
+    protected int getLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void getData() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,13 +36,27 @@ public class ShopInfoActivity extends BaseActivity {
         final String murl = getIntent().getStringExtra("murl");
 
         final WebView mywebview = (WebView) findViewById(R.id.mywebview);
+        mywebview.loadUrl(murl);
 
-        mywebview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                mywebview.loadUrl(murl);
-                return true;
-            }
-        });
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void addData(SharChdeals response) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void shoError() {
+
     }
 }

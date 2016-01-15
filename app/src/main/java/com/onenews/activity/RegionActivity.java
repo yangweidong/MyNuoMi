@@ -1,19 +1,14 @@
 package com.onenews.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.onenews.R;
-import com.onenews.adapter.CityAdapter;
 import com.onenews.adapter.RegionAdapter;
-import com.onenews.bean.CityBean;
 import com.onenews.bean.RegionBean;
+import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
-import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -63,6 +58,26 @@ public class RegionActivity extends ListActivity {
 
     }
 
+    @Override
+    protected int getLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void getData() {
+
+    }
+
 
     public class RegionCallback extends Callback<RegionBean> {
         //非UI线程，支持任何耗时操作
@@ -85,6 +100,26 @@ public class RegionActivity extends ListActivity {
             mDistrictsEntities.addAll(response.getDistricts());
             mRegionAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void addData(SharChdeals response) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void shoError() {
+
     }
 
 }

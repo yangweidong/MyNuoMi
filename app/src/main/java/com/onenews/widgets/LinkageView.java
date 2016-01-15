@@ -5,15 +5,20 @@ import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.onenews.R;
 import com.onenews.test.ChildItem;
 import com.onenews.test.FatherItem;
 import com.onenews.test.LeftAdapter;
 import com.onenews.test.RightAdapter;
 import com.onenews.utils.L;
+
+import org.lucasr.twowayview.ItemSelectionSupport;
+import org.lucasr.twowayview.TwoWayLayoutManager;
+import org.lucasr.twowayview.widget.TwoWayView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +41,7 @@ public class LinkageView<T> extends LinearLayout {
     }
 
 
-    RecyclerView left;
+    TwoWayView left;
     RecyclerView right;
 
     LeftAdapter mLeftAdapter;
@@ -44,16 +49,23 @@ public class LinkageView<T> extends LinearLayout {
 
     OnRightItemClickCallback mOnRightItemClickCallback;
 
-    public void setmOnRightItemClickCallback(OnRightItemClickCallback mOnRightItemClickCallback) {
+    public void setOnRightItemClickCallback(OnRightItemClickCallback mOnRightItemClickCallback) {
         this.mOnRightItemClickCallback = mOnRightItemClickCallback;
     }
 
     private void init(Context context) {
         this.setBackgroundColor(Color.WHITE);
-       // mOnRightItemClickCallback = (OnRightItemClickCallback) context;
+        // mOnRightItemClickCallback = (OnRightItemClickCallback) context;
+
+        left = (TwoWayView) LayoutInflater.from(context).inflate(R.layout.layout_list, null);
+//         right = (RecyclerView) LayoutInflater.from(context).inflate(R.layout.layout_list,this);
 
 
-        left = new RecyclerView(context);
+//        left = new TwoWayView(context, );
+        left.setHasFixedSize(true);
+        left.setLongClickable(true);
+        left.setOrientation(TwoWayLayoutManager.Orientation.VERTICAL);
+
         right = new RecyclerView(context);
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
@@ -69,10 +81,6 @@ public class LinkageView<T> extends LinearLayout {
         addView(left, param);
         addView(right, param);
 
-        left.setSelected(true);
-        left.setLayoutManager(new LinearLayoutManager(context));
-        left.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
-
 
         right.setLayoutManager(new LinearLayoutManager(context));
         right.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
@@ -86,9 +94,13 @@ public class LinkageView<T> extends LinearLayout {
             public void onItemClick(View view, int postion) {
                 FatherItem fatherItem = mClassifyBean.get(postion);
                 mClassifyBeanRight.clear();
-
                 mClassifyBeanRight.addAll(fatherItem.getChildItems());
                 mRightAdapter.notifyDataSetChanged();
+
+                ItemSelectionSupport itemSelection = ItemSelectionSupport.addTo(left);
+                itemSelection.setChoiceMode(ItemSelectionSupport.ChoiceMode.SINGLE);
+                itemSelection.setItemChecked(postion, true);
+
             }
         });
 
@@ -99,7 +111,9 @@ public class LinkageView<T> extends LinearLayout {
         mRightAdapter.setOnItemClickListener(new RightAdapter.MyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                mOnRightItemClickCallback.onItemClick(mClassifyBeanRight.get(postion), postion);
+                if (null != mOnRightItemClickCallback) {
+                    mOnRightItemClickCallback.onItemClick(mClassifyBeanRight.get(postion), postion);
+                }
             }
         });
     }
@@ -109,7 +123,7 @@ public class LinkageView<T> extends LinearLayout {
 
 
     public interface OnRightItemClickCallback {
-        public void onItemClick(ChildItem subcategoriesEntity, int postion);
+        public void onItemClick(ChildItem childItem, int postion);
     }
 
 

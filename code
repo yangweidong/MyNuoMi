@@ -1,0 +1,324 @@
+
+
+Home
+
+  OkHttpUtils
+                .get()
+                .url(Api.SEARCHDEALS)
+                .addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82")
+                .params(params)
+                .build()
+                .execute(new HomeRequestCallback());
+
+
+//    public class HomeRequestCallback extends Callback<SharChdeals> {
+//        //非UI线程，支持任何耗时操作
+//        @Override
+//        public SharChdeals parseNetworkResponse(Response response) throws IOException {
+//            String string = response.body().string();
+//            SharChdeals user = new Gson().fromJson(string, SharChdeals.class);
+//            return user;
+//        }
+//
+//        @Override
+//        public void onError(Request request, Exception e) {
+//
+//        }
+//
+//
+//        @Override
+//        public void onResponse(SharChdeals response) {
+//
+//            if (response.getErrno() == 1001) {
+//                Toast.makeText(getActivity(), "没有数据", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            if (response.getErrno() == 1002) {
+//                Toast.makeText(getActivity(), "参数错误", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            if (response.getErrno() == 1003) {
+//                Toast.makeText(getActivity(), "缺失必须参数", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            if (response.getErrno() == 1004) {
+//                Toast.makeText(getActivity(), "认证未通过", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            if (response.getErrno() == 1005) {
+//                Toast.makeText(getActivity(), "获取数据为空", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            mHomeAdapterDatas.clear();
+//            mHomeAdapterDatas.addAll(response.getData().getDeals());
+//
+//            mHomeRl_Adapter.notifyDataSetChanged();
+//
+//        }
+//    }
+
+
+
+  private String mSelectedCity_ID = "100010000";//城市ID
+    private String mCat_ids = "";//分类的id，支持多个category合并查询， 多个一级分类用英文逗号,连接
+    private String mSubcat_ids = "";//二级分类的id，支持多个subcategory合并查询， 多个二级分类用英文逗号,连接， 如1,2,3
+    private String mDistrict_ids = "";//行政区id， 支持多个，多个区用英文逗号,连接
+    private String mBizarea_ids = "";//商圈id, 支持多个查询， 多个商圈用,连接
+    private String mLocation = "";//商圈id, 支持多个查询， 多个商圈用,连接
+    private String mkeyword = "";//关键词，搜索商品名
+    private String mRadius = "";//基于location,搜索的半径范围，单位是米。 可选（若传入该参数，必须同时传入合法的经纬度坐标， radius字段默认半径3000米）
+    private String mSort = "";//按照某种规则对返回的结果排序, 默认值为0。0:综合排序 1：价格低优先， 2：价格高优先， 3：折扣高优先， 4：销量高优先， 5：用户坐标距离近优先， 6：最新发布优先,8:用户评分高优先
+    private String mPage = "";//分页数据的页码, 如不传默认是1
+    private String mPage_size = "20";//每页返回的团单结果条目数上限，最小值1，最大值50，如不传入默认为10
+    private String mIs_reservation_required = "";//是否筛选出免预约,否: 默认不传 0为不筛选 1为筛选出支持免预约的团单
+
+    private void getSearchdeal() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("city_id", mSelectedCity_ID);
+        params.put("cat_ids", mCat_ids);
+        params.put("subcat_ids", mSubcat_ids);
+        params.put("district_ids", mDistrict_ids);
+        params.put("bizarea_ids", mBizarea_ids);
+        params.put("location", mLocation);
+        params.put("keyword", mkeyword);
+        params.put("radius", mRadius);
+        params.put("sort", mSort);
+        params.put("page", mPage);
+        params.put("page_size", mPage_size);
+        params.put("is_reservation_required", mIs_reservation_required);
+
+
+        OkHttpUtils
+                .get()
+                .url(Api.SEARCHDEALS)
+                .addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82")
+                .params(params)
+                .build()
+                .execute(new SharChdealsCallback());
+    }
+
+    private void searchShop() {
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("city_id", city_id);
+        params.put("cat_ids", cat_ids);
+        params.put("subcat_ids", subcat_ids);
+        params.put("district_ids", district_ids);
+        params.put("bizarea_ids", bizarea_ids);
+        params.put("location", location);
+        params.put("keyword", keyword);
+        params.put("radius", radius);
+        params.put("page", page);
+        params.put("page_size", page_size);
+        params.put("deals_per_shop", deals_per_shop);
+
+
+        OkHttpUtils.get().url(Api.SEARCHSHOPS).params(params).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").build().execute(new SearchShopCallback());
+//        showDialog();
+    }
+
+
+
+
+
+
+
+//            case R.id.getDistricts:
+//
+//                startActivity(intent);
+
+//                getCitys();
+//
+//                linkageViewSeparate.setLeftItemClickCallback(new LinkageView_Separate.OnLeftItemClickCallback() {
+//                    @Override
+//                    public void onItemClick(FatherItem fatherItem, int postion) {
+//
+//                        String cityID = mCityDatas.get(postion).getCityId();
+//
+//                        L.i(cityID.toString() + "   ID是");
+//                        mSelectedCity_ID = cityID;
+//                        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id", cityID).build().execute(new RegionCallback());
+//
+//                    }
+//                });
+//
+//                linkageViewSeparate.setOnRightItemClickCallback(new LinkageView_Separate.OnRightItemClickCallback() {
+//                    @Override
+//                    public void onItemClick(ChildItem childItem, int postion) {
+//                        L.i("回调回调");
+//                        getDistricts.setText(childItem.getSubcat_name() + "");
+//                        mDistrict_ids = childItem.getmDistrict_ids();
+//                        if (null != popupWindow2 && popupWindow2.isShowing()) {
+//                            popupWindow2.dismiss();
+//                        }
+//
+//                    }
+//                });
+//                break;
+//            case R.id.getCitys:
+//                Intent intent = new Intent(MainActivity.this, CityActivity.class);
+//                startActivityForResult(intent, 333);
+//                break;
+//            case R.id.getClassify:
+//                popupWindow.getContent().setmOnRightItemClickCallback(new LinkageView.OnRightItemClickCallback() {
+//                    @Override
+//                    public void onItemClick(ChildItem subcategoriesEntity, int postion) {
+//                        L.e("哈哈哈" + subcategoriesEntity.toString() + " " + postion);
+//                        if (popupWindow.isShowing()) {
+//                            popupWindow.dismiss();
+//                        }
+//
+//                        Map<String, String> params = new HashMap<String, String>();
+//                        params.put("city_id", mSelectedCity_ID);
+//                        params.put("cat_ids", mCat_ids);
+//                        params.put("subcat_ids", subcategoriesEntity.getSubcat_id() + "");
+//                        params.put("district_ids", mDistrict_ids);
+//                        params.put("bizarea_ids", mBizarea_ids);
+//                        params.put("location", mLocation);
+//                        params.put("keyword", mkeyword);
+//                        params.put("radius", mRadius);
+//                        params.put("sort", mSort);
+//                        params.put("page", mPage);
+//                        params.put("page_size", mPage_size);
+//                        params.put("is_reservation_required", mIs_reservation_required);
+//
+//
+//                        OkHttpUtils
+//                                .get()
+//                                .url(Api.SEARCHDEALS)
+//                                .addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82")
+//                                .params(params)
+//                                .build()
+//                                .execute(new SharChdealsCallback());
+//                    }
+//                });
+//                getClassIfy();
+//                break;
+
+
+
+
+
+
+
+    public class RegionCallback extends Callback<RegionBean> {
+        //非UI线程，支持任何耗时操作
+        @Override
+        public RegionBean parseNetworkResponse(Response response) throws IOException {
+            String string = response.body().string();
+            RegionBean user = new Gson().fromJson(string, RegionBean.class);
+            return user;
+        }
+
+        @Override
+        public void onError(Request request, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(RegionBean response) {
+            L.e("列表数据来了" + response.toString());
+            if (null != mChildDatas) {
+                mChildDatas.clear();
+            }
+            for (int i = 0; i < response.getDistricts().size(); i++) {
+                ShopInfoBean childItem = new ShopInfoBean();
+                childItem.setSubcat_name(response.getDistricts().get(i).getDistrict_name());
+                childItem.setmDistrict_ids(response.getDistricts().get(i).getDistrict_id() + "");
+                mChildDatas.add(childItem);
+
+            }
+            linkageViewSeparate.setChildData(mChildDatas);
+
+        }
+    }
+
+
+
+
+
+
+    //    public class SharChdealsCallback extends Callback<SharChdeals> {
+//        //非UI线程，支持任何耗时操作
+//        @Override
+//        public SharChdeals parseNetworkResponse(Response response) throws IOException {
+//            String string = response.body().string();
+//            SharChdeals user = new Gson().fromJson(string, SharChdeals.class);
+//            return user;
+//        }
+//
+//        @Override
+//        public void onError(Request request, Exception e) {
+//
+//        }
+//
+//
+//        @Override
+//        public void onResponse(SharChdeals response) {
+//
+//            if (response.getErrno() == 1001) {
+//                Toast.makeText(MainActivity.this, "没有数据", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            if (response.getErrno() == 1002) {
+//                Toast.makeText(MainActivity.this, "参数错误", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            if (response.getErrno() == 1003) {
+//                Toast.makeText(MainActivity.this, "缺失必须参数", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            if (response.getErrno() == 1004) {
+//                Toast.makeText(MainActivity.this, "认证未通过", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            if (response.getErrno() == 1005) {
+//                Toast.makeText(MainActivity.this, "获取数据为空", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            mSharChdealBeens.clear();
+////            mCitiesEntity = response.getCities();
+//            // mClassifyBeen.addAll(response.getCategories());
+//            // mLeftAdapter.notifyDataSetChanged();
+//            mSharChdealBeens.addAll(response.getData().getDeals());
+//
+//            mSharChdealsAdapter.notifyDataSetChanged();
+//
+//        }
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

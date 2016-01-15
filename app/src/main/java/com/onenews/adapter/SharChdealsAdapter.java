@@ -1,6 +1,5 @@
 package com.onenews.adapter;
 
-import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenews.R;
-import com.onenews.bean.CityBean;
 import com.onenews.bean.SharChdeals;
 
 import java.util.List;
@@ -19,18 +17,16 @@ import java.util.List;
  * Created by yangweidong on 15/12/31.
  */
 public class SharChdealsAdapter extends RecyclerView.Adapter<SharChdealsAdapter.CityViewHolder> {
-    private Context mContext;
     private  List<SharChdeals.DataEntity.DealsEntity> mCityBean;
 
-    public SharChdealsAdapter(Context context, List<SharChdeals.DataEntity.DealsEntity> cityBean) {
-        this.mContext = context;
+    public SharChdealsAdapter(List<SharChdeals.DataEntity.DealsEntity> cityBean) {
         this.mCityBean = cityBean;
 
     }
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(mContext).inflate(R.layout.sharchdeals_item, parent, false), mMyItemClickListener);
+        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.sharchdeals_item, parent, false), mMyItemClickListener);
 
         return cityViewHolder;
     }

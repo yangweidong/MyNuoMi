@@ -57,8 +57,8 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.CityViewHolder
         public void onItemClick(View view, int postion);
     }
 
-    int lastPosition = -1;
-    TextView lastTextView;
+//    int lastPosition = -1;
+//    TextView lastTextView;
 
     class CityViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tv;
@@ -87,13 +87,13 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.CityViewHolder
 //                    selectedItems.put(getAdapterPosition(), true);
 //
 //                }
-                if(null!=lastTextView) {
-                    lastTextView.setSelected(false);
-                    notifyItemChanged(lastPosition);
-                }
-
-                tv.setSelected(true);
-                lastTextView = tv;
+//                if(null!=lastTextView) {
+//                    lastTextView.setSelected(false);
+//                    notifyItemChanged(lastPosition);
+//                }
+//
+//                tv.setSelected(true);
+//                lastTextView = tv;
 
 
             }

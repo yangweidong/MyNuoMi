@@ -8,6 +8,7 @@ import com.onenews.R;
 import com.onenews.activity.BaseActivity;
 import com.onenews.adapter.ClassIfyAdapter;
 import com.onenews.bean.ClassifyBean;
+import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
 import com.onenews.widgets.LinkageView;
@@ -25,6 +26,26 @@ public class TestActivit extends BaseActivity {
     RecyclerView left;
     RecyclerView right;
     LinkageView linkageView;
+
+    @Override
+    protected int getLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void getData() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,5 +121,25 @@ public class TestActivit extends BaseActivity {
 //            linkageView.setData(mDataBeens);
 
         }
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void addData(SharChdeals response) {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void shoError() {
+
     }
 }

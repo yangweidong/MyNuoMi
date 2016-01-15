@@ -1,0 +1,7 @@
+package com.onenews.view;
+
+/**
+ * Created by yangweidong on 16/1/14.
+ */
+public interface ClassIfySearchView extends BaseView {
+}
