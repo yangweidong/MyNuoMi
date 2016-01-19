@@ -1,7 +1,9 @@
 package com.onenews.model.impl;
 
 import com.google.gson.Gson;
+import com.onenews.bean.DistrictBean;
 import com.onenews.bean.HomeShop;
+import com.onenews.http.Api;
 import com.onenews.model.ClassIfysearchModel;
 import com.onenews.presenter.OnClassIfysearchListener;
 import com.onenews.utils.L;
@@ -29,18 +31,13 @@ public class ClassIfysearchModelImpl implements ClassIfysearchModel {
         OkHttpUtils.get().url(url).params(params).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").build().execute(new SearchShopCallback());
     }
 
-    @Override
-    public void getDistricts(String url, Map<String, String> params, OnClassIfysearchListener onClassIfysearchListener) {
-
-    }
-
 
     public class SearchShopCallback extends Callback<HomeShop> {
         @Override
         public HomeShop parseNetworkResponse(Response response) throws IOException {
             String string = response.body().string();
-            HomeShop user = new Gson().fromJson(string, HomeShop.class);
-            return user;
+            HomeShop homeShop = new Gson().fromJson(string, HomeShop.class);
+            return homeShop;
         }
 
         @Override
@@ -55,5 +52,36 @@ public class ClassIfysearchModelImpl implements ClassIfysearchModel {
             L.e("数据回来了" + response.toString());
         }
     }
+
+
+    @Override
+    public void getDistricts(String url, Map<String, String> params, OnClassIfysearchListener onClassIfysearchListener) {
+        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").params(params).build().execute(new RegionCallback());
+    }
+
+
+    public class RegionCallback extends Callback<DistrictBean> {
+        //非UI线程，支持任何耗时操作
+        @Override
+        public DistrictBean parseNetworkResponse(Response response) throws IOException {
+            String string = response.body().string();
+            DistrictBean user = new Gson().fromJson(string, DistrictBean.class);
+            return user;
+        }
+
+        @Override
+        public void onError(Request request, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(DistrictBean response) {
+            L.e("列表数据来了" + response.toString());
+            mOnClassIfysearchListener.getDistrictSuccess(response);
+
+
+        }
+    }
+
 
 }

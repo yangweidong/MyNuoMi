@@ -99,8 +99,35 @@ public class DistrictBean {
             }
 
             public int getBiz_area_id() {
+
                 return biz_area_id;
             }
+
+            @Override
+            public String toString() {
+                return "BizAreasEntity{" +
+                        "biz_area_name='" + biz_area_name + '\'' +
+                        ", biz_area_id=" + biz_area_id +
+                        '}';
+            }
         }
+
+        @Override
+        public String toString() {
+            return "DistrictsEntity{" +
+                    "district_name='" + district_name + '\'' +
+                    ", district_id=" + district_id +
+                    ", biz_areas=" + biz_areas +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "DistrictBean{" +
+                "errno=" + errno +
+                ", msg='" + msg + '\'' +
+                ", districts=" + districts +
+                '}';
     }
 }

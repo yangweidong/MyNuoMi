@@ -1,5 +1,6 @@
 package com.onenews.presenter;
 
+import com.onenews.bean.DistrictBean;
 import com.onenews.bean.HomeShop;
 
 /**
@@ -11,4 +12,7 @@ public interface OnClassIfysearchListener {
 //    void on
 
     void onFailure(String msg, Exception e);
+
+
+    void getDistrictSuccess(DistrictBean cityBeen);
 }

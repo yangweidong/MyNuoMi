@@ -19,12 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity android:name=".activity.OptChannel" />
         <activity
             android:name=".activity.MyIntro"
@@ -36,10 +33,14 @@
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ClassifyActivity" />
-        <activity android:name=".test.TestActivity" />
+
         <activity android:name=".test.TestActivit" />
         <activity android:name=".activity.ShopInfoActivity" />
-        <activity android:name=".activity.ClassIfySearchActivity"></activity>
+        <activity android:name=".activity.ClassIfySearchActivity" />
+        <activity
+            android:name=".activity.ShopOrderListActivity"
+
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
