@@ -1,14 +1,12 @@
 package com.onenews.view;
 
-import com.onenews.bean.SharChdeals;
-
 /**
  * Created by yangweidong on 16/1/14.
  */
-public interface BaseView {
+public interface BaseView<T> {
     abstract void showProgress();
 
-    abstract void addData(SharChdeals response);
+    abstract void addData(T response);
 
     abstract void hideProgress();
 

@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.onenews.R;
 import com.onenews.adapter.CityAdapter;
 import com.onenews.bean.CityBean;
-import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
 import com.onenews.widgets.DividerItemDecoration;
@@ -119,7 +118,7 @@ public class CityActivity extends BaseActivity {
     }
 
     @Override
-    public void addData(SharChdeals response) {
+    public void addData(Object response) {
 
     }
 

@@ -3,17 +3,19 @@ package com.onenews.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenews.R;
-import com.onenews.activity.ClassIfySearchActivSity;
+import com.onenews.activity.ClassIfySearchActivity;
 import com.onenews.activity.ShopInfoActivity;
 import com.onenews.adapter.HomeRlAdapter;
+import com.onenews.adapter.HomeViewPagerAdapter;
 import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.presenter.HomePresenter;
@@ -89,7 +91,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         params.put("page_size", mPage_size);
         params.put("is_reservation_required", mIs_reservation_required);
         mHomePresenter.loadData(Api.SEARCHDEALS, params);
+
+
     }
+
+
+    ArrayList<View> mHomeViewPagerViews = new ArrayList<>();
 
     @Override
     void initView(View view) {
@@ -105,11 +112,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mHomeRl_View.setArrowImageView(R.drawable.iconfont_downgrey);
 
 
-        View header = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header, (ViewGroup) view.findViewById(android.R.id.content), false);
+        ViewPager header = (ViewPager) LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header, mHomeRl_View, false);
+        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme1, header, false);
+        View view2 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme2, header, false);
+        mHomeViewPagerViews.add(view1);
+        mHomeViewPagerViews.add(view2);
 
 
-        header.findViewById(R.id.Cate).setOnClickListener(this);
-        header.findViewById(R.id.Film).setOnClickListener(this);
+        LinearLayout cate_ll = (LinearLayout) view1.findViewById(R.id.cate_ll);
+        cate_ll.setOnClickListener(this);
+
+
+//        header.findViewById(R.id.Cate).setOnClickListener(this);
+//        header.findViewById(R.id.Film).setOnClickListener(this);
+
+        header.setAdapter(new HomeViewPagerAdapter(mHomeViewPagerViews));
+
 
         mHomeRl_View.addHeaderView(header);
         mHomeRl_Adapter = new HomeRlAdapter(mHomeAdapterDatas);
@@ -123,7 +141,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 Intent intent = new Intent(getActivity(), ShopInfoActivity.class);
                 String murl = mHomeAdapterDatas.get(postion).getDeal_murl();
                 intent.putExtra("murl", murl);
-                startActivity(intent);
+                getActivity().startActivity(intent);
             }
         });
     }
@@ -165,18 +183,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-
-            case R.id.Cate:
-
-                intent = new Intent(getActivity(), ClassIfySearchActivSity.class);
+            case R.id.Film:
+                intent = new Intent(getActivity(), ClassIfySearchActivity.class);
                 startActivity(intent);
 
                 break;
-            case R.id.Film:
-
-                intent = new Intent(getActivity(), ClassIfySearchActivSity.class);
+            case R.id.cate_ll:
+                intent = new Intent(getActivity(), ClassIfySearchActivity.class);
                 startActivity(intent);
-
                 break;
         }
     }

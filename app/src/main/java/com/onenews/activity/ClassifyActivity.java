@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.onenews.adapter.ClassIfyAdapter;
 import com.onenews.bean.ClassifyBean;
-import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
 import com.squareup.okhttp.Request;
@@ -103,7 +102,7 @@ public class ClassifyActivity extends ListActivity {
     }
 
     @Override
-    public void addData(SharChdeals response) {
+    public void addData(Object response) {
 
     }
 

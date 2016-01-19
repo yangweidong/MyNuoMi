@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.onenews.adapter.RegionAdapter;
 import com.onenews.bean.RegionBean;
-import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
 import com.squareup.okhttp.Request;
@@ -108,7 +107,7 @@ public class RegionActivity extends ListActivity {
     }
 
     @Override
-    public void addData(SharChdeals response) {
+    public void addData(Object response) {
 
     }
 

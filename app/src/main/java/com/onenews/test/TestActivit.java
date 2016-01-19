@@ -8,7 +8,6 @@ import com.onenews.R;
 import com.onenews.activity.BaseActivity;
 import com.onenews.adapter.ClassIfyAdapter;
 import com.onenews.bean.ClassifyBean;
-import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.utils.L;
 import com.onenews.widgets.LinkageView;
@@ -129,7 +128,7 @@ public class TestActivit extends BaseActivity {
     }
 
     @Override
-    public void addData(SharChdeals response) {
+    public void addData(Object response) {
 
     }
 

@@ -20,12 +20,13 @@ import com.onenews.R;
 import com.onenews.adapter.ListDropDownAdapter;
 import com.onenews.adapter.MainRecyclerViewAdaptr;
 import com.onenews.bean.CityBean;
-import com.onenews.bean.ClassifyBean;
 import com.onenews.bean.DistrictBean;
 import com.onenews.bean.HomeShop;
 import com.onenews.bean.SharChdeals;
 import com.onenews.bean.SortBean;
 import com.onenews.http.Api;
+import com.onenews.presenter.ClassIfysearchPresenter;
+import com.onenews.presenter.impl.ClassIfysearchPresenterImpl;
 import com.onenews.test.ChildItem;
 import com.onenews.test.ClassIfyBean;
 import com.onenews.test.FatherItem;
@@ -49,7 +50,7 @@ import java.util.Map;
 /**
  * 详情界面
  */
-public class ClassIfySearchActivSity extends BaseActivity implements View.OnClickListener {
+public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop> {
 
 
     private String headers[] = {"区域", "智能排序"};
@@ -74,31 +75,21 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
     Button getDistricts;
 
     List<SharChdeals.DataEntity.DealsEntity> mSharChdealBeens = new ArrayList<>();
+
+
     List<HomeShop.DataEntity.ShopsEntity> mDataBeens = new ArrayList<>();
 
 
-    List<ClassifyBean.CategoriesEntity> mClassifyBeen = new ArrayList<>();
     MyPopupWindow popupWindow;
 
 
-//    private String mSelectedCity_ID = "100010000";//城市ID
-//    private String mCat_ids = "";//分类的id，支持多个category合并查询， 多个一级分类用英文逗号,连接
-//    private String mSubcat_ids = "";//二级分类的id，支持多个subcategory合并查询， 多个二级分类用英文逗号,连接， 如1,2,3
-//    private String mDistrict_ids = "";//行政区id， 支持多个，多个区用英文逗号,连接
-//    private String mBizarea_ids = "";//商圈id, 支持多个查询， 多个商圈用,连接
-//    private String mLocation = "";//商圈id, 支持多个查询， 多个商圈用,连接
-//    private String mkeyword = "";//关键词，搜索商品名
-//    private String mRadius = "";//基于location,搜索的半径范围，单位是米。 可选（若传入该参数，必须同时传入合法的经纬度坐标， radius字段默认半径3000米）
-//    private String mSort = "";//按照某种规则对返回的结果排序, 默认值为0。0:综合排序 1：价格低优先， 2：价格高优先， 3：折扣高优先， 4：销量高优先， 5：用户坐标距离近优先， 6：最新发布优先,8:用户评分高优先
-//    private String mPage = "";//分页数据的页码, 如不传默认是1
-//    private String mPage_size = "20";//每页返回的团单结果条目数上限，最小值1，最大值50，如不传入默认为10
-//    private String mIs_reservation_required = "";//是否筛选出免预约,否: 默认不传 0为不筛选 1为筛选出支持免预约的团单
-
-    Button cityname_bt;
     DropDownMenu mDropDownMenu;
 
 
     private ArrayList<SortBean> mSortArr;
+
+
+    private ClassIfysearchPresenter mClassIfysearchPresenter;
 
 
     @Override
@@ -122,8 +113,11 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initView() {
-        mDropDownMenu = (DropDownMenu) findViewById(R.id.dropDownMenu);
 
+        mClassIfysearchPresenter = new ClassIfysearchPresenterImpl(this);
+
+
+        mDropDownMenu = (DropDownMenu) findViewById(R.id.dropDownMenu);
 
         mRegionSelector = new LinkageView<List<FatherItem>>(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -134,9 +128,8 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
             @Override
             public void onItemClick(ChildItem childItem, int postion) {
                 mDropDownMenu.closeMenu();
-                Toast.makeText(ClassIfySearchActivSity.this, "点击了", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ClassIfySearchActivity.this, "点击了", Toast.LENGTH_SHORT).show();
                 district_ids = childItem.getmDistrict_ids();
-                getSearchdeal();
             }
         });
 
@@ -159,7 +152,6 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
                 mDropDownMenu.setTabText(mSortArr.get(position).getName());
                 mDropDownMenu.closeMenu();
                 district_ids = mSortArr.get(position).getKey();
-                getSearchdeal();
 
             }
         });
@@ -177,9 +169,9 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
         mClassIfyContentAdapter.setOnItemClickListener(new MainRecyclerViewAdaptr.MyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                Toast.makeText(ClassIfySearchActivSity.this, "哈哈哈", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ClassIfySearchActivity.this, "哈哈哈", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(ClassIfySearchActivSity.this, ShopInfoActivity.class);
+                Intent intent = new Intent(ClassIfySearchActivity.this, ShopInfoActivity.class);
                 String murl = mSharChdealBeens.get(postion - 1).getDeal_murl();
 
                 intent.putExtra("murl", murl);
@@ -195,7 +187,31 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
 
     @Override
     protected void getData() {
-        getSearchdeal();
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("city_id", city_id);
+        params.put("cat_ids", cat_ids);
+        params.put("subcat_ids", subcat_ids);
+        params.put("district_ids", district_ids);
+        params.put("bizarea_ids", bizarea_ids);
+        params.put("location", location);
+        params.put("keyword", keyword);
+        params.put("radius", radius);
+        params.put("page", page);
+        params.put("page_size", page_size);
+        params.put("deals_per_shop", deals_per_shop);
+
+        mClassIfysearchPresenter.loadBusiness(Api.SEARCHSHOPS, params);
+
+
+        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id", "").build().execute(new RegionCallback());
+
+        Map<String, String> districtsParams = new HashMap<String, String>();
+        districtsParams.put("city_id", "100010000");
+
+        mClassIfysearchPresenter.loadDistricts(Api.DISTRICTS, districtsParams);
+
+
         getDistricts();
     }
 
@@ -239,7 +255,7 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
 
 
     private void getDistricts() {
-        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id", "100010000").build().execute(new RegionCallback());
+
 
     }
 
@@ -256,157 +272,7 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
     String page_size = "";
     String deals_per_shop = "";
 
-    private void getSearchdeal() {
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("city_id", city_id);
-        params.put("cat_ids", cat_ids);
-        params.put("subcat_ids", subcat_ids);
-        params.put("district_ids", district_ids);
-        params.put("bizarea_ids", bizarea_ids);
-        params.put("location", location);
-        params.put("keyword", keyword);
-        params.put("radius", radius);
-        params.put("page", page);
-        params.put("page_size", page_size);
-        params.put("deals_per_shop", deals_per_shop);
-
-
-        OkHttpUtils.get().url(Api.SEARCHSHOPS).params(params).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").build().execute(new SearchShopCallback());
-    }
-
-
-    public class SearchShopCallback extends Callback<HomeShop> {
-        //非UI线程，支持任何耗时操作
-        @Override
-        public HomeShop parseNetworkResponse(Response response) throws IOException {
-            String string = response.body().string();
-            HomeShop user = new Gson().fromJson(string, HomeShop.class);
-            return user;
-        }
-
-        @Override
-        public void onError(Request request, Exception e) {
-
-        }
-
-
-        @Override
-        public void onResponse(HomeShop response) {
-            mDataBeens.clear();
-//            mCitiesEntity = response.getCities();
-            // mClassifyBeen.addAll(response.getCategories());
-            // mLeftAdapter.notifyDataSetChanged();
-            L.e("数据回来了" + response.toString());
-
-
-//            for (int i = 0; i < response.getCategories().size(); i++) {
-//
-//
-//                ClassIfyBean fatherItem = new ClassIfyBean();
-//
-//                fatherItem.setCat_id(response.getCategories().get(i).getCat_id());
-//                fatherItem.setmFatherName(response.getCategories().get(i).getCat_name());
-//                List<ChildItem> subcategoriesEntitys = new ArrayList<ChildItem>();
-//
-//                for (int y = 0; y < response.getCategories().get(i).getSubcategories().size(); y++) {
-//
-//                    ChildItem subcategoriesEntity = new ChildItem();
-//                    subcategoriesEntity.setSubcat_id(response.getCategories().get(i).getSubcategories().get(y).getSubcat_id());
-//                    subcategoriesEntity.setSubcat_name(response.getCategories().get(i).getSubcategories().get(y).getSubcat_name());
-//
-//                    subcategoriesEntitys.add(subcategoriesEntity);
-//
-//                }
-//                fatherItem.setChildItems(subcategoriesEntitys);
-//                mDataBeens.add(fatherItem);
-//
-//            }
-//            popupWindow.setData(mDataBeens);
-
-            mDataBeens.addAll(response.getData().getShops());
-
-            mClassIfyContentAdapter.notifyDataSetChanged();
-//            mRecyclerView.setAdapter(mAdapter);
-        }
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-//            case R.id.getDistricts:
-//                getCitys();
-//
-//                linkageViewSeparate.setLeftItemClickCallback(new LinkageView_Separate.OnLeftItemClickCallback() {
-//                    @Override
-//                    public void onItemClick(FatherItem fatherItem, int postion) {
-//
-//                        String cityID = mCityDatas.get(postion).getCityId();
-//
-//                        L.i(cityID.toString() + "   ID是");
-//                        mSelectedCity_ID = cityID;
-//                        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id", cityID).build().execute(new RegionCallback());
-//
-//                    }
-//                });
-//
-//                linkageViewSeparate.setOnRightItemClickCallback(new LinkageView_Separate.OnRightItemClickCallback() {
-//                    @Override
-//                    public void onItemClick(ChildItem childItem, int postion) {
-//                        L.i("回调回调");
-//                        getDistricts.setText(childItem.getSubcat_name() + "");
-//                        mDistrict_ids = childItem.getmDistrict_ids();
-//                        if (null != popupWindow2 && popupWindow2.isShowing()) {
-//                            popupWindow2.dismiss();
-//                        }
-//
-//                    }
-//                });
-//                break;
-//            case R.id.getCitys:
-//                startActivityForResult(intent, 333);
-//                break;
-//            case R.id.getClassify:
-//                popupWindow.getContent().setmOnRightItemClickCallback(new LinkageView.OnRightItemClickCallback() {
-//                    @Override
-//                    public void onItemClick(ChildItem subcategoriesEntity, int postion) {
-//                        L.e("哈哈哈" + subcategoriesEntity.toString() + " " + postion);
-//                        if (popupWindow.isShowing()) {
-//                            popupWindow.dismiss();
-//                        }
-//
-//                        Map<String, String> params = new HashMap<String, String>();
-//                        params.put("city_id", mSelectedCity_ID);
-//                        params.put("cat_ids", mCat_ids);
-//                        params.put("subcat_ids", subcategoriesEntity.getSubcat_id() + "");
-//                        params.put("district_ids", mDistrict_ids);
-//                        params.put("bizarea_ids", mBizarea_ids);
-//                        params.put("location", mLocation);
-//                        params.put("keyword", mkeyword);
-//                        params.put("radius", mRadius);
-//                        params.put("sort", mSort);
-//                        params.put("page", mPage);
-//                        params.put("page_size", mPage_size);
-//                        params.put("is_reservation_required", mIs_reservation_required);
-//
-//
-//                        OkHttpUtils
-//                                .get()
-//                                .url(Api.SEARCHDEALS)
-//                                .addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82")
-//                                .params(params)
-//                                .build()
-//                                .execute(new SharChdealsCallback());
-//                    }
-//                });
-//                getClassIfy();
-//                break;
-
-
-        }
-    }
 
     List<FatherItem> mRegionDataBeens = new ArrayList<>();
 
@@ -701,8 +567,10 @@ public class ClassIfySearchActivSity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public void addData(SharChdeals response) {
-
+    public void addData(HomeShop response) {
+        mDataBeens.clear();
+        mDataBeens.addAll(response.getData().getShops());
+        mClassIfyContentAdapter.notifyDataSetChanged();
     }
 
     @Override

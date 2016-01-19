@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.onenews.activity.BaseActivity;
-import com.onenews.bean.SharChdeals;
 import com.onenews.fragment.HomeFragment;
 import com.onenews.presenter.MainPresenter;
 import com.onenews.presenter.impl.MainPresenterImpl;
@@ -100,7 +99,7 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public void addData(SharChdeals response) {
+    public void addData(Object response) {
 
     }
 
