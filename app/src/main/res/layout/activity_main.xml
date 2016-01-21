@@ -5,22 +5,23 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
 
-    <include
-        layout="@layout/app_bar_main"
+    <FrameLayout
+        android:id="@+id/frame_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/navigation_menu"
         android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header" />
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu" />
 
 </android.support.v4.widget.DrawerLayout>

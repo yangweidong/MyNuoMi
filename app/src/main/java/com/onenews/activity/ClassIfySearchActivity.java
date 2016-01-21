@@ -62,7 +62,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_details;
+        return R.layout.activity_classify_search;
     }
 
     @Override
@@ -81,6 +81,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
 
     @Override
     protected void initView() {
+
 
         mClassIfysearchPresenter = new ClassIfysearchPresenterImpl(this);
 
@@ -139,10 +140,10 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
             public void onItemClick(View view, int postion) {
                 Toast.makeText(ClassIfySearchActivity.this, "哈哈哈", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(ClassIfySearchActivity.this, ShopOrderListActivity.class);
+                Intent intent = new Intent(ClassIfySearchActivity.this, ShopActivity.class);
 //                String murl = mSharChdealBeens.get(postion - 1).getDeal_murl();
 //
-                intent.putExtra("shopID", mDataBeens.get(postion).getShop_id());
+                intent.putExtra("shopid", mDataBeens.get(postion - 1).getShop_id() + "");
                 intent.putExtra("title", mDataBeens.get(postion - 1).getShop_name());
                 startActivity(intent);
             }

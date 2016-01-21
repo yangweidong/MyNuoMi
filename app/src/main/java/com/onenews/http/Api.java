@@ -13,4 +13,10 @@ public class Api {
 
    public static final String SEARCHSHOPS = "http://apis.baidu.com/baidunuomi/openapi/searchshops";//根据查询条件获取查询的商户信息
 
+
+   public static final String SHOP_ORDER_LIST = "http://apis.baidu.com/baidunuomi/openapi/shopdeals";//糯米商户下团单列表
+
+
+   public static final String SHOP_INFO = "http://apis.baidu.com/baidunuomi/openapi/shopinfo";//店铺信息
+
 }

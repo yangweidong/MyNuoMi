@@ -1,32 +1,29 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/holo_blue_dark</item>
-        <item name="colorPrimaryDark">@android:color/holo_blue_light</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 
-    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
+    <!--<style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="android:windowTranslucentStatus">true</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--<style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">-->
 
-        <item name="colorPrimary">@android:color/holo_blue_dark</item>
-        <item name="colorPrimaryDark">@android:color/holo_blue_light</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!--<item name="colorPrimary">@android:color/holo_blue_dark</item>-->
+    <!--<item name="colorPrimaryDark">@android:color/holo_blue_light</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
 
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <!--<item name="windowActionBar">false</item>-->
+    <!--<item name="windowNoTitle">true</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
     <style name="TwoWayView" parent="TwoWayViewBase">
         <item name="android:orientation">vertical</item>

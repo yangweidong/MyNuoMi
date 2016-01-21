@@ -152,8 +152,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
+    void initData() {
+
+    }
+
+    @Override
     public void showProgress() {
         L.e("显示加载框......");
+    }
+
+    @Override
+    public void addData(Object response) {
+
     }
 
     @Override

@@ -1,46 +1,68 @@
 package com.onenews.fragment;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.onenews.R;
 import com.onenews.adapter.ShopOrderListFragmentAdapter;
+import com.onenews.bean.ShopOrderListBean;
+import com.onenews.http.Api;
+import com.onenews.presenter.ShopOrderListPresenter;
+import com.onenews.presenter.impl.ShopOrderListPresenterImpl;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ShopOrderListFragment extends Fragment {
+public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBean> {
     private ShopOrderListFragmentAdapter mAdapter;
+    List<ShopOrderListBean.DealsEntity> mShopOrderListBeans = new ArrayList();
+    ShopOrderListPresenter mShopOrderListPresenter;
 
-    private String mItemData = "Lorem Ipsum is simply dummy text of the printing and "
-            + "typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shop_order_list, container, false);
+    void initView(View view) {
+        super.initView(view);
+        mShopOrderListPresenter = new ShopOrderListPresenterImpl(this);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(
-                R.id.fragment_list_rv);
+//        mRecyclerView = (RecyclerView) view.findViewById(
+//                R.id.fragment_list_rv);
+//
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+//        mRecyclerView.setLayoutManager(linearLayoutManager);
+//        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new ShopOrderListFragmentAdapter(mShopOrderListBeans);
+        mXRecyclerView.setAdapter(mAdapter);
+    }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
+    @Override
+    void getData() {
+        Map<String, String> parmas = new HashMap<>();
+        parmas.put("shop_id", shopId);
+        mShopOrderListPresenter.getShopOrderData(Api.SHOP_ORDER_LIST, parmas);
+    }
 
-        String[] listItems = mItemData.split(" ");
 
-        List<String> list = new ArrayList<String>();
-        Collections.addAll(list, listItems);
+    @Override
+    public void showProgress() {
 
-        mAdapter = new ShopOrderListFragmentAdapter(list);
-        recyclerView.setAdapter(mAdapter);
+    }
 
-        return view;
+    @Override
+    public void addData(ShopOrderListBean response) {
+        for (int i = 0; i < response.getDeals().size(); i++) {
+
+            mShopOrderListBeans.add(response.getDeals().get(i));
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void shoError() {
+
     }
 }
