@@ -6,6 +6,7 @@ package com.onenews.activity;
 public class ShopImage {
     String imageurl;
 
+
     public ShopImage(String imageurl) {
         this.imageurl = imageurl;
     }

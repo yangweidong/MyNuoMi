@@ -7,4 +7,6 @@ import java.util.Map;
  */
 public interface ShopInfoPresenter {
     public void getShopInfo(String url, Map<String, String> parmas);
+
+    public void getShopImage(String url);
 }

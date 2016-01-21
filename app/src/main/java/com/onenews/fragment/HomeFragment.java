@@ -120,7 +120,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
 
         LinearLayout cate_ll = (LinearLayout) view1.findViewById(R.id.cate_ll);
+//        LinearLayout Film = (LinearLayout) view1.findViewById(R.id.Film);
         cate_ll.setOnClickListener(this);
+//        Film.setOnClickListener(this);
 
 
 //        header.findViewById(R.id.Cate).setOnClickListener(this);
@@ -193,14 +195,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.cate_ll:
+                intent = new Intent(getActivity(), ClassIfySearchActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.Film:
                 intent = new Intent(getActivity(), ClassIfySearchActivity.class);
                 startActivity(intent);
 
-                break;
-            case R.id.cate_ll:
-                intent = new Intent(getActivity(), ClassIfySearchActivity.class);
-                startActivity(intent);
                 break;
         }
     }

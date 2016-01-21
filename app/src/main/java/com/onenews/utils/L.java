@@ -37,7 +37,7 @@ public class L {
     /**
      * 日志输出时的TAG
      */
-    private static String mTag = "MeiZhi";
+    private static String mTag = "MyNM";
 
     /**
      * 是否允许输出log

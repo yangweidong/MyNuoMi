@@ -1,28 +1,25 @@
 package com.onenews.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenews.R;
+import com.onenews.adapter.ShopInfoViewPager;
 import com.onenews.bean.ShopOrderListBean;
 import com.onenews.fragment.EvaluateFragment;
 import com.onenews.fragment.ShopInfoFragment;
 import com.onenews.fragment.ShopOrderListFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ShopActivity extends BaseActivity<ShopOrderListBean> implements View.OnClickListener {
+public class ShopActivity extends BaseActivity<ShopOrderListBean> implements View.OnClickListener, ShopInfoFragment.UpShopHeaderBg {
     String mShopId;
     String mTitle;
-
+    SimpleDraweeView header_image;
     @Override
     protected int getLayout() {
         return R.layout.activity_shop;
@@ -37,23 +34,31 @@ public class ShopActivity extends BaseActivity<ShopOrderListBean> implements Vie
     @Override
     protected void initView() {
 
+        header_image = (SimpleDraweeView) findViewById(R.id.header_image);
+
         //init ViewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ShopInfoViewPager adapter = new ShopInfoViewPager(getSupportFragmentManager());
+        viewPager.setOffscreenPageLimit(3);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("shopid", mShopId + "");
 
 
         ShopOrderListFragment shopOrderListFragment = new ShopOrderListFragment();
-        Bundle shopOrderListFragmentBundle = new Bundle();
-        shopOrderListFragmentBundle.putString("shopid", mShopId + "");
-        shopOrderListFragment.setArguments(shopOrderListFragmentBundle);
+        shopOrderListFragment.setArguments(bundle);
 
 
         ShopInfoFragment shopInfoFragment = new ShopInfoFragment();
-        shopInfoFragment.setArguments(shopOrderListFragmentBundle);
+        shopInfoFragment.setArguments(bundle);
+
+
+        EvaluateFragment evaluateFragment = new EvaluateFragment();
+        evaluateFragment.setArguments(bundle);
 
         adapter.addFrag(shopOrderListFragment, "订单列表");
         adapter.addFrag(shopInfoFragment, "商家信息");
-        adapter.addFrag(new EvaluateFragment(), "评价");
+        adapter.addFrag(evaluateFragment, "评价");
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -115,33 +120,9 @@ public class ShopActivity extends BaseActivity<ShopOrderListBean> implements Vie
     }
 
 
-    static class ViewPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFrag(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
+    @Override
+    public void onUpBg(String imageUrl) {
+        Uri uri = Uri.parse(imageUrl);
+        header_image.setImageURI(uri);
     }
 }

@@ -5,8 +5,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navigation_item_news"
-            android:icon="@mipmap/ic_assessment_white_24dp"
             android:checked="true"
+            android:icon="@mipmap/ic_assessment_white_24dp"
             android:title="@string/navigation_news" />
         <item
             android:id="@+id/navigation_item_images"

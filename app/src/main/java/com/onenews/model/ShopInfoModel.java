@@ -11,5 +11,5 @@ public interface ShopInfoModel {
     public void getShopInfo(String url, Map<String, String> params, ShopInfoListener shopInfoListener);
 
 
-    public void getShopImage(String url);
+    public void getShopImages(String url);
 }

@@ -1,5 +1,6 @@
 package com.onenews.adapter;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,8 @@ public class ShopInfoAdapter extends RecyclerView.Adapter<ShopInfoAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Uri uri = Uri.parse(shopImages.get(position).getImageurl());
+        holder.shop_image.setImageURI(uri);
     }
 
     @Override

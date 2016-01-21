@@ -89,7 +89,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
         mDropDownMenu = (DropDownMenu) findViewById(R.id.dropDownMenu);
 
         mRegionSelector = new LinkageView<List<FatherItem>>(this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 700);
         mRegionSelector.setLayoutParams(layoutParams);
         mRegionSelector.setFocusable(true);
         mRegionSelector.setFocusableInTouchMode(true);

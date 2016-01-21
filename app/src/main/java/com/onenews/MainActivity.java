@@ -20,7 +20,6 @@ public class MainActivity extends BaseActivity implements MainView {
     private ActionBarDrawerToggle mDrawerToggle;
     private MainPresenter mMainPresenter;
 
-
     @Override
     protected int getLayout() {
         return R.layout.activity_main;
@@ -67,26 +66,6 @@ public class MainActivity extends BaseActivity implements MainView {
                     }
                 });
     }
-
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        if (resultCode == 333) {
-//
-//            String cityID = data.getStringExtra("cityID");
-//            String cityName = data.getStringExtra("cityName");
-//            String cityPinyin = data.getStringExtra("cityPinyin");
-//            String cityShortName = data.getStringExtra("cityShortName");
-//            String cityShortPinyin = data.getStringExtra("cityShortPinyin");
-//
-//            L.e("" + cityID + cityName);
-//
-//        }
-//
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
-
 
     @Override
     public void showShoppingPage() {

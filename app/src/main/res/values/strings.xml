@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OneNews</string>
+    <string name="app_name">NuoMi</string>
     <string name="title_activity_list">ListActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -7,8 +7,8 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="navigation_news">新闻</string>
+    <string name="navigation_news">首页</string>
     <string name="navigation_images">图片</string>
-    <string name="navigation_weather">天气</string>
+    <string name="navigation_weather">设置</string>
     <string name="navigation_about">关于</string>
 </resources>

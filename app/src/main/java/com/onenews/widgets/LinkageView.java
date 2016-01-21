@@ -68,16 +68,13 @@ public class LinkageView<T> extends LinearLayout {
 
         right = new RecyclerView(context);
 
-        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
 
-        left.setLayoutParams(layoutParams);
-        right.setLayoutParams(layoutParams);
         setOrientation(LinearLayout.HORIZONTAL);
 
 
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT, 1.0f);
+                1000, 1.0f);
         addView(left, param);
         addView(right, param);
 

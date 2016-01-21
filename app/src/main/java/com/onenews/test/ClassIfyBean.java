@@ -14,4 +14,6 @@ public class ClassIfyBean extends FatherItem {
     public int getCat_id() {
         return cat_id;
     }
+
+
 }
