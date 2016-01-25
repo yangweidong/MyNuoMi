@@ -59,6 +59,7 @@ public class ClassifyBean {
     public static class CategoriesEntity {
         private int cat_id;
         private String cat_name;
+        private int icon;
         /**
          * subcat_name : 快照冲印
          * subcat_id : 319

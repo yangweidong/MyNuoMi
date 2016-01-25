@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by yangweidong on 15/12/31.
  */
-public class L {
+public class LL {
     /**
      * 日志输出级别NONE
      */

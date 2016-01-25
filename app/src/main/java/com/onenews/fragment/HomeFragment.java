@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -20,7 +22,8 @@ import com.onenews.bean.SharChdeals;
 import com.onenews.http.Api;
 import com.onenews.presenter.HomePresenter;
 import com.onenews.presenter.impl.HomePresenterImpl;
-import com.onenews.utils.L;
+import com.onenews.utils.Dip2Px;
+import com.onenews.utils.LL;
 import com.onenews.view.HomeView;
 
 import java.util.ArrayList;
@@ -91,12 +94,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         params.put("page_size", mPage_size);
         params.put("is_reservation_required", mIs_reservation_required);
         mHomePresenter.loadData(Api.SEARCHDEALS, params);
-
-
     }
 
 
     ArrayList<View> mHomeViewPagerViews = new ArrayList<>();
+
+
+    GridView mHeaderGridLayout;
+
 
     @Override
     void initView(View view) {
@@ -112,17 +117,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mHomeRl_View.setArrowImageView(R.drawable.iconfont_downgrey);
 
 
-        ViewPager header = (ViewPager) LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header, mHomeRl_View, false);
-        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme1, header, false);
+        ViewPager header = new ViewPager(getActivity());//(ViewPager) LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header, mHomeRl_View, false);
+        RecyclerView.LayoutParams headerParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, Dip2Px.dip2px(getActivity(), 200));
+        header.setLayoutParams(headerParams);
+
+
+        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme11, header, false);
+
+
+        mHeaderGridLayout = new GridView(getActivity());
+        RecyclerView.LayoutParams gridParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
+        mHeaderGridLayout.setLayoutParams(gridParams);
+//        mHeaderGridLayout.setAdapter(new );
+
+
         View view2 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme2, header, false);
         mHomeViewPagerViews.add(view1);
         mHomeViewPagerViews.add(view2);
 
 
         LinearLayout cate_ll = (LinearLayout) view1.findViewById(R.id.cate_ll);
-//        LinearLayout Film = (LinearLayout) view1.findViewById(R.id.Film);
+        LinearLayout Film = (LinearLayout) view1.findViewById(R.id.Film);
         cate_ll.setOnClickListener(this);
-//        Film.setOnClickListener(this);
+        Film.setOnClickListener(this);
 
 
 //        header.findViewById(R.id.Cate).setOnClickListener(this);
@@ -160,7 +177,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void showProgress() {
-        L.e("显示加载框......");
+        LL.e("显示加载框......");
     }
 
     @Override
@@ -170,7 +187,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void addData(SharChdeals response) {
-        L.e("数据回来了......");
+        LL.e("数据回来了......");
 
         mHomeAdapterDatas.clear();
         mHomeAdapterDatas.addAll(response.getData().getDeals());
@@ -181,13 +198,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void hideProgress() {
-        L.e("隐藏加载框......");
+        LL.e("隐藏加载框......");
 
     }
 
     @Override
     public void shoError() {
-        L.e("显示错误框......");
+        LL.e("显示错误框......");
 
     }
 

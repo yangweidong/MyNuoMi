@@ -13,7 +13,7 @@ import com.onenews.test.ChildItem;
 import com.onenews.test.FatherItem;
 import com.onenews.test.LeftAdapter2;
 import com.onenews.test.RightAdapter;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +90,7 @@ public class LinkageView_Separate extends LinearLayout {
             @Override
             public void onItemClick(View view, int postion) {
                 if(null!= mLeftItemClickCallback){
-                    L.e("哈哈哈"+ mLeftItems.get(postion)+"  "+postion);
+                    LL.e("哈哈哈" + mLeftItems.get(postion) + "  " + postion);
                     mLeftItemClickCallback.onItemClick(mLeftItems.get(postion),postion);
                 }
             }
@@ -121,7 +121,7 @@ public class LinkageView_Separate extends LinearLayout {
     }
 
     public void setFatherData(List<CityBean> data) {
-        L.i("setData");
+        LL.i("setData");
         if (null != mLeftItems && !mLeftItems.isEmpty()) {
             mLeftItems.clear();
         }
@@ -131,7 +131,7 @@ public class LinkageView_Separate extends LinearLayout {
 
 
     public void setChildData( List<ChildItem> data) {
-        L.i("setData");
+        LL.i("setData");
         if (null != mRightItems && !mRightItems.isEmpty()) {
             mRightItems.clear();
         }

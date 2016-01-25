@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.onenews.R;
-import com.onenews.bean.ClassifyBean;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.CityViewHold
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(mContext).inflate(R.layout.city_item, parent, false), mMyItemClickListener);
+        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(mContext).inflate(R.layout.district_item, parent, false), mMyItemClickListener);
 
         return cityViewHolder;
     }

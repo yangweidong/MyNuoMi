@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.lzyzsd.randomcolor.RandomColor;
 import com.onenews.R;
 import com.onenews.bean.CityBean;
 
@@ -33,6 +35,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     }
 
     MyItemClickListener mMyItemClickListener;
+    RandomColor randomColor = new RandomColor();
 
     public void setOnItemClickListener(MyItemClickListener onItemClickListener) {
         mMyItemClickListener = onItemClickListener;
@@ -42,6 +45,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     @Override
     public void onBindViewHolder(CityViewHolder holder, int position) {
         holder.tv.setText(mCityBean.get(position).getCity_name());
+        randomColor.randomColor();
+        holder.imageView.setBackgroundResource(R.color.colorPrimary);
     }
 
     @Override
@@ -58,11 +63,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
 
     class CityViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tv;
+        ImageView imageView;
         MyItemClickListener mMyItemClickListener;
 
         public CityViewHolder(View itemView, MyItemClickListener myItemClickListener) {
             super(itemView);
             tv = (TextView) itemView.findViewById(R.id.city_item_textview);
+            imageView = (ImageView) itemView.findViewById(R.id.icon);
             this.mMyItemClickListener = myItemClickListener;
             itemView.setOnClickListener(this);
         }

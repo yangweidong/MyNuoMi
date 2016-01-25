@@ -14,7 +14,7 @@ import com.onenews.test.ChildItem;
 import com.onenews.test.FatherItem;
 import com.onenews.test.LeftAdapter;
 import com.onenews.test.RightAdapter;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 
 import org.lucasr.twowayview.ItemSelectionSupport;
 import org.lucasr.twowayview.TwoWayLayoutManager;
@@ -125,7 +125,7 @@ public class LinkageView<T> extends LinearLayout {
 
 
     public void setData(T data) {
-        L.i("setData");
+        LL.i("setData");
         if (null != mClassifyBean && !mClassifyBean.isEmpty()) {
             mClassifyBean.clear();
         }

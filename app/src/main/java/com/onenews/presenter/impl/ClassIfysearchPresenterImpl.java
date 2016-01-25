@@ -9,7 +9,7 @@ import com.onenews.presenter.OnClassIfysearchListener;
 import com.onenews.test.ChildItem;
 import com.onenews.test.ClassIfyBean;
 import com.onenews.test.FatherItem;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.onenews.view.ClassIfySearchView;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class ClassIfysearchPresenterImpl implements ClassIfysearchPresenter, OnC
 //        }
 
 
-        L.e("PresenterImpl列表数据来了" + response.toString());
+        LL.e("PresenterImpl列表数据来了" + response.toString());
 
 
         for (int i = 0; i < response.getDistricts().size(); i++) {

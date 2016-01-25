@@ -9,7 +9,7 @@ import com.onenews.activity.BaseActivity;
 import com.onenews.adapter.ClassIfyAdapter;
 import com.onenews.bean.ClassifyBean;
 import com.onenews.http.Api;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.onenews.widgets.LinkageView;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -86,7 +86,7 @@ public class TestActivit extends BaseActivity {
 
         @Override
         public void onResponse(ClassifyBean response) {
-            L.e("哈哈哈" + response.toString());
+            LL.e("哈哈哈" + response.toString());
 //            mCitiesEntity = response.getCities();
             // mClassifyBeen.addAll(response.getCategories());
             // mLeftAdapter.notifyDataSetChanged();
@@ -115,7 +115,7 @@ public class TestActivit extends BaseActivity {
 
             }
 
-            L.e("呵呵呵呵呵");
+            LL.e("呵呵呵呵呵");
 
 //            linkageView.setData(mDataBeens);
 

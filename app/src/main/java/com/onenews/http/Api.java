@@ -19,4 +19,6 @@ public class Api {
 
    public static final String SHOP_INFO = "http://apis.baidu.com/baidunuomi/openapi/shopinfo";//店铺信息
 
+   public static final String DEALDETAIL = "http://apis.baidu.com/baidunuomi/openapi/dealdetail";
+
 }

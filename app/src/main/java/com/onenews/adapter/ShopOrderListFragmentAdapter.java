@@ -10,6 +10,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -33,10 +34,18 @@ public class ShopOrderListFragmentAdapter extends RecyclerView.Adapter<ShopOrder
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shop_order_list_item,
                 viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, shopOrderRlItemClickListener);
     }
 
+    ShopOrderRlItemClickListener shopOrderRlItemClickListener;
+
+    public void setOnItemClickListener(ShopOrderRlItemClickListener shopOrderRlItemClickListener) {
+        this.shopOrderRlItemClickListener = shopOrderRlItemClickListener;
+    }
+
+
     SpannableString mSS;
+
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.title.setText(mListData.get(i).getMin_title());
@@ -75,13 +84,18 @@ public class ShopOrderListFragmentAdapter extends RecyclerView.Adapter<ShopOrder
 
     }
 
+    public interface ShopOrderRlItemClickListener {
+        public void onItemClick(View view, int postion);
+    }
+
     @Override
     public int getItemCount() {
         return mListData == null ? 0 : mListData.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        LinearLayout item_content;
         TextView title;
         TextView description;
         TextView market_price;
@@ -89,10 +103,12 @@ public class ShopOrderListFragmentAdapter extends RecyclerView.Adapter<ShopOrder
         TextView score;
         SimpleDraweeView image;
         TextView price;
+        ShopOrderRlItemClickListener shopOrderRlItemClickListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, ShopOrderRlItemClickListener shopOrderRlItemClickListener) {
             super(itemView);
-
+            this.shopOrderRlItemClickListener = shopOrderRlItemClickListener;
+            item_content = (LinearLayout) itemView.findViewById(R.id.item_content);
             title = (TextView) itemView.findViewById(R.id.title);
             image = (SimpleDraweeView) itemView.findViewById(R.id.image);
             description = (TextView) itemView.findViewById(R.id.description);
@@ -100,6 +116,14 @@ public class ShopOrderListFragmentAdapter extends RecyclerView.Adapter<ShopOrder
             discount_number = (TextView) itemView.findViewById(R.id.discount_number);
             score = (TextView) itemView.findViewById(R.id.score);
             price = (TextView) itemView.findViewById(R.id.price);
+            item_content.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (shopOrderRlItemClickListener != null) {
+                shopOrderRlItemClickListener.onItemClick(v, getLayoutPosition());
+            }
         }
     }
 

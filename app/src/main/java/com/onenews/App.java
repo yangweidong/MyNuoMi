@@ -13,6 +13,8 @@ import jonathanfinerty.once.Once;
  * Created by yangweidong on 15/12/30.
  */
 public class App extends Application {
+    public static String mCityID = "100010000";
+
     @Override
     public void onCreate() {
         super.onCreate();

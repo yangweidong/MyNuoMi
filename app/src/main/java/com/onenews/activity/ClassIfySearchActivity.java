@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.onenews.App;
 import com.onenews.R;
 import com.onenews.adapter.ClassIfyRecyclerViewAdaptr;
 import com.onenews.adapter.ListDropDownAdapter;
@@ -21,7 +22,7 @@ import com.onenews.presenter.ClassIfysearchPresenter;
 import com.onenews.presenter.impl.ClassIfysearchPresenterImpl;
 import com.onenews.test.ChildItem;
 import com.onenews.test.FatherItem;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.onenews.view.ClassIfySearchView;
 import com.onenews.widgets.LinkageView;
 import com.onenews.widgets.dropdownmenu.DropDownMenu;
@@ -159,7 +160,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
     protected void getData() {
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("city_id", city_id);
+        params.put("city_id", App.mCityID);
         params.put("cat_ids", cat_ids);
         params.put("subcat_ids", subcat_ids);
         params.put("district_ids", district_ids);
@@ -170,17 +171,17 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
         params.put("page", page);
         params.put("page_size", page_size);
         params.put("deals_per_shop", deals_per_shop);
-
         mClassIfysearchPresenter.loadBusiness(Api.SEARCHSHOPS, params);
 
+
         Map<String, String> districtsParams = new HashMap<String, String>();
-        districtsParams.put("city_id", "100010000");
+        districtsParams.put("city_id", App.mCityID);
 
         mClassIfysearchPresenter.loadDistricts(Api.DISTRICTS, districtsParams);
 
     }
 
-    String city_id = "100010000";
+    //    String city_id = "100010000";
     String cat_ids = "";
     String subcat_ids = "";
     String district_ids = "";
@@ -210,7 +211,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
             String cityShortName = data.getStringExtra("cityShortName");
             String cityShortPinyin = data.getStringExtra("cityShortPinyin");
 
-            L.e("" + cityID + cityName);
+            LL.e("" + cityID + cityName);
 
         }
 

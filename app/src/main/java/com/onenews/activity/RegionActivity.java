@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.onenews.adapter.RegionAdapter;
 import com.onenews.bean.RegionBean;
 import com.onenews.http.Api;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -94,7 +94,7 @@ public class RegionActivity extends ListActivity {
 
         @Override
         public void onResponse(RegionBean response) {
-            L.e(response.toString());
+            LL.e(response.toString());
 //            mCitiesEntity = response.getCities();
             mDistrictsEntities.addAll(response.getDistricts());
             mRegionAdapter.notifyDataSetChanged();

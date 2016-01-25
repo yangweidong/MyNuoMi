@@ -11,7 +11,7 @@ import com.onenews.bean.ShopInfoBean;
 import com.onenews.http.Api;
 import com.onenews.presenter.ShopInfoPresenter;
 import com.onenews.presenter.impl.ShopInfoPresenterImpl;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.onenews.view.ShopInfoView;
 
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class ShopInfoFragment extends BaseShopInfoFragment<ShopInfoBean> impleme
 
     @Override
     public void addData(ShopInfoBean response) {
-        L.e(response.toString());
+        LL.e(response.toString());
 
         shopname_tv.setText(response.getShop().getShop_name());
         shopphone_tv.setText("联系方式:   " + response.getShop().getPhone());

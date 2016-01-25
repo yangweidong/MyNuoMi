@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.onenews.adapter.ClassIfyAdapter;
 import com.onenews.bean.ClassifyBean;
 import com.onenews.http.Api;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -89,7 +89,7 @@ public class ClassifyActivity extends ListActivity {
 
         @Override
         public void onResponse(ClassifyBean response) {
-            L.e(response.toString());
+            LL.e(response.toString());
 //            mCitiesEntity = response.getCities();
             mClassifyBeen.addAll(response.getCategories());
             mClassIfyAdapter.notifyDataSetChanged();

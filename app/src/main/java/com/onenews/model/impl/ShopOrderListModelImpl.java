@@ -5,7 +5,7 @@ import com.onenews.bean.ShopOrderListBean;
 import com.onenews.http.Api;
 import com.onenews.model.ShopOrderListModel;
 import com.onenews.presenter.ShopOrderListListener;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -45,7 +45,7 @@ public class ShopOrderListModelImpl implements ShopOrderListModel {
 
         @Override
         public void onResponse(ShopOrderListBean response) {
-            L.e("订单列表数据过来了" + response.toString());
+            LL.e("订单列表数据过来了" + response.toString());
             mShopOrderListListener.onSuccess(response);
 
         }

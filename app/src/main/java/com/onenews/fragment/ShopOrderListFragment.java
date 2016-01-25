@@ -1,6 +1,7 @@
 package com.onenews.fragment;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.onenews.adapter.ShopOrderListFragmentAdapter;
 import com.onenews.bean.ShopOrderListBean;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBean> {
+public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBean> implements ShopOrderListFragmentAdapter.ShopOrderRlItemClickListener {
     private ShopOrderListFragmentAdapter mAdapter;
     List<ShopOrderListBean.DealsEntity> mShopOrderListBeans = new ArrayList();
     ShopOrderListPresenter mShopOrderListPresenter;
@@ -32,6 +33,8 @@ public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBea
 //        mRecyclerView.setHasFixedSize(true);
         mAdapter = new ShopOrderListFragmentAdapter(mShopOrderListBeans);
         mXRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -64,5 +67,10 @@ public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBea
     @Override
     public void shoError() {
 
+    }
+
+    @Override
+    public void onItemClick(View view, int postion) {
+        Toast.makeText(getActivity(), "" + postion, Toast.LENGTH_SHORT).show();
     }
 }

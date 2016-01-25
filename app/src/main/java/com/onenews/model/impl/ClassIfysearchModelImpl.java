@@ -6,7 +6,7 @@ import com.onenews.bean.HomeShop;
 import com.onenews.http.Api;
 import com.onenews.model.ClassIfysearchModel;
 import com.onenews.presenter.OnClassIfysearchListener;
-import com.onenews.utils.L;
+import com.onenews.utils.LL;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -49,7 +49,7 @@ public class ClassIfysearchModelImpl implements ClassIfysearchModel {
         @Override
         public void onResponse(HomeShop response) {
             mOnClassIfysearchListener.onSuccess(response);
-            L.e("数据回来了" + response.toString());
+            LL.e("数据回来了" + response.toString());
         }
     }
 
@@ -76,7 +76,7 @@ public class ClassIfysearchModelImpl implements ClassIfysearchModel {
 
         @Override
         public void onResponse(DistrictBean response) {
-            L.e("列表数据来了" + response.toString());
+            LL.e("列表数据来了" + response.toString());
             mOnClassIfysearchListener.getDistrictSuccess(response);
 
 

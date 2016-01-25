@@ -28,7 +28,7 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.CityViewHolder
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(mContext).inflate(R.layout.city_item, parent, false), mMyItemClickListener);
+        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(mContext).inflate(R.layout.district_item, parent, false), mMyItemClickListener);
 
         return cityViewHolder;
     }
