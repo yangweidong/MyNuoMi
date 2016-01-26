@@ -110,11 +110,11 @@ public class ShopActivity extends BaseActivity<ShopOrderListBean> implements Vie
 
     }
 
+
     @Override
-    public void shoError() {
+    public void shoError(String msg) {
 
     }
-
     @Override
     public void onClick(View v) {
     }

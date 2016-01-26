@@ -139,7 +139,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
         mClassIfyContentAdapter.setOnItemClickListener(new ClassIfyRecyclerViewAdaptr.MyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                Toast.makeText(ClassIfySearchActivity.this, "哈哈哈", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ClassIfySearchActivity.this, "哈哈哈", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(ClassIfySearchActivity.this, ShopActivity.class);
 //                String murl = mSharChdealBeens.get(postion - 1).getDeal_murl();
@@ -182,16 +182,16 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
     }
 
     //    String city_id = "100010000";
-    String cat_ids = "";
-    String subcat_ids = "";
-    String district_ids = "";
-    String bizarea_ids = "";
-    String location = "";
-    String keyword = "";
-    String radius = "";
-    String page = "";
-    String page_size = "";
-    String deals_per_shop = "";
+    String cat_ids = "326";
+    String subcat_ids = "962,994";
+    String district_ids = "394,395";
+    String bizarea_ids = "1322,1328";
+    String location = "116.418993,39.915597";
+    String keyword = "";//美食
+    String radius = "30000";
+    String page = "1";
+    String page_size = "20";
+    String deals_per_shop = "20";
 
 
     @Override
@@ -241,6 +241,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
     @Override
     public void addData(HomeShop response) {
         mDataBeens.clear();
+
         mDataBeens.addAll(response.getData().getShops());
         mClassIfyContentAdapter.notifyDataSetChanged();
     }
@@ -251,8 +252,8 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
     }
 
     @Override
-    public void shoError() {
-
+    public void shoError(String msg) {
+        Toast.makeText(ClassIfySearchActivity.this, "" + msg, Toast.LENGTH_SHORT).show();
     }
 
 

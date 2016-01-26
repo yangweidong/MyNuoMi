@@ -1,8 +1,9 @@
 package com.onenews.fragment;
 
+import android.content.Intent;
 import android.view.View;
-import android.widget.Toast;
 
+import com.onenews.activity.OrderDetailsActivity;
 import com.onenews.adapter.ShopOrderListFragmentAdapter;
 import com.onenews.bean.ShopOrderListBean;
 import com.onenews.http.Api;
@@ -64,13 +65,19 @@ public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBea
 
     }
 
+
     @Override
-    public void shoError() {
+    public void shoError(String msg) {
 
     }
-
     @Override
     public void onItemClick(View view, int postion) {
-        Toast.makeText(getActivity(), "" + postion, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "" + postion, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), OrderDetailsActivity.class);
+        String order = mShopOrderListBeans.get(postion - 1).getDeal_id() + "";
+        intent.putExtra("orderid", order);
+        startActivity(intent);
     }
+
+
 }

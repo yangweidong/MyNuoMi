@@ -202,11 +202,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
+
     @Override
-    public void shoError() {
+    public void shoError(String msg) {
         LL.e("显示错误框......");
 
     }
+
 
     @Override
     public void onClick(View v) {

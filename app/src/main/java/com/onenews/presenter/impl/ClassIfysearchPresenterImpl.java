@@ -48,6 +48,33 @@ public class ClassIfysearchPresenterImpl implements ClassIfysearchPresenter, OnC
     @Override
     public void onSuccess(HomeShop response) {
 
+
+        if (response.getErrno() == 1001) {
+            mBaseView.shoError(1001 + "");
+            return;
+        }
+
+        if (response.getErrno() == 1002) {
+            mBaseView.shoError(1002 + "");
+
+            return;
+        }
+
+        if (response.getErrno() == 1003) {
+            mBaseView.shoError(1003 + "");
+
+            return;
+        }
+        if (response.getErrno() == 1004) {
+            mBaseView.shoError(1004 + "");
+
+            return;
+        }
+        if (response.getErrno() == 1005) {
+            mBaseView.shoError(1005 + "");
+            return;
+        }
+
         mBaseView.addData(response);
 
     }
@@ -61,28 +88,32 @@ public class ClassIfysearchPresenterImpl implements ClassIfysearchPresenter, OnC
     public void getDistrictSuccess(DistrictBean response) {
 
 
-//        if (response.getErrno() == 1001) {
-//            Toast.makeText(ClassIfySearchActivSity.this, "没有数据", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if (response.getErrno() == 1002) {
-//            Toast.makeText(ClassIfySearchActivSity.this, "参数错误", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if (response.getErrno() == 1003) {
-//            Toast.makeText(ClassIfySearchActivSity.this, "缺失必须参数", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (response.getErrno() == 1004) {
-//            Toast.makeText(ClassIfySearchActivSity.this, "认证未通过", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (response.getErrno() == 1005) {
-//            Toast.makeText(ClassIfySearchActivSity.this, "获取数据为空", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if (response.getErrno() == 1001) {
+            mBaseView.shoError(1001 + "");
+            return;
+        }
+
+        if (response.getErrno() == 1002) {
+            mBaseView.shoError(1002 + "");
+
+            return;
+        }
+
+        if (response.getErrno() == 1003) {
+            mBaseView.shoError(1003 + "");
+
+            return;
+        }
+        if (response.getErrno() == 1004) {
+            mBaseView.shoError(1004 + "");
+
+            return;
+        }
+        if (response.getErrno() == 1005) {
+            mBaseView.shoError(1005 + "");
+            return;
+        }
+
 
 
         LL.e("PresenterImpl列表数据来了" + response.toString());

@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     }
 
     @Override
-    public void shoError() {
+    public void shoError(String msg) {
 
     }
 

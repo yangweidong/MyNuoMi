@@ -10,5 +10,5 @@ public interface BaseView<T> {
 
     abstract void hideProgress();
 
-    abstract void shoError();
+    abstract void shoError(String msg);
 }

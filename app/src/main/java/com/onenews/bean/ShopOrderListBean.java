@@ -60,7 +60,7 @@ public class ShopOrderListBean {
     }
 
     public class DealsEntity {
-        private int deal_id;
+        private String deal_id;
         private String image;
         private String tiny_image;
         private String title;
@@ -75,11 +75,11 @@ public class ShopOrderListBean {
         private String deal_url;
         private String deal_murl;
 
-        public int getDeal_id() {
+        public String getDeal_id() {
             return deal_id;
         }
 
-        public void setDeal_id(int deal_id) {
+        public void setDeal_id(String deal_id) {
             this.deal_id = deal_id;
         }
 

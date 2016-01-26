@@ -94,10 +94,9 @@ public class ShopInfoFragment extends BaseShopInfoFragment<ShopInfoBean> impleme
     }
 
     @Override
-    public void shoError() {
+    public void shoError(String msg) {
 
     }
-
     @Override
     public void addShopImage(List<ShopImage> shopImages) {
         mShopImages.addAll(shopImages);

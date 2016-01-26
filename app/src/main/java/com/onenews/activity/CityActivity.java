@@ -207,8 +207,9 @@ public class CityActivity extends BaseActivity {
 
     }
 
+
     @Override
-    public void shoError() {
+    public void shoError(String msg) {
 
     }
 

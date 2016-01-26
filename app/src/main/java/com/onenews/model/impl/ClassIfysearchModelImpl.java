@@ -26,7 +26,7 @@ public class ClassIfysearchModelImpl implements ClassIfysearchModel {
     @Override
     public void getData(String url, Map<String, String> params, OnClassIfysearchListener onClassIfysearchListener) {
         this.mOnClassIfysearchListener = onClassIfysearchListener;
-
+        LL.e("请求参数是:" + params.toString());
 
         OkHttpUtils.get().url(url).params(params).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").build().execute(new SearchShopCallback());
     }
@@ -48,8 +48,10 @@ public class ClassIfysearchModelImpl implements ClassIfysearchModel {
 
         @Override
         public void onResponse(HomeShop response) {
-            mOnClassIfysearchListener.onSuccess(response);
-            LL.e("数据回来了" + response.toString());
+            if (null != mOnClassIfysearchListener) {
+                mOnClassIfysearchListener.onSuccess(response);
+                LL.e("数据回来了" + response.toString());
+            }
         }
     }
 

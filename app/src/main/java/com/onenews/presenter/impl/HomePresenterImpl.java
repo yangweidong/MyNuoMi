@@ -37,6 +37,6 @@ public class HomePresenterImpl implements HomePresenter, OnHomeLoadListener {
 
     @Override
     public void onFailure(String msg, Exception e) {
-        mHomeView.shoError();
+        mHomeView.shoError(msg);
     }
 }

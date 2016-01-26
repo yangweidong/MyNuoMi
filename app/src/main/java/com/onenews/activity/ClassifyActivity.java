@@ -111,8 +111,9 @@ public class ClassifyActivity extends ListActivity {
 
     }
 
+
     @Override
-    public void shoError() {
+    public void shoError(String msg) {
 
     }
 
