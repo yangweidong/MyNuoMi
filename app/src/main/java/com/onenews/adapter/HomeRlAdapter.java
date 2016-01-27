@@ -26,7 +26,8 @@ public class HomeRlAdapter extends RecyclerView.Adapter<HomeRlAdapter.HomeRlView
 
     @Override
     public HomeRlViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        HomeRlViewHolder cityViewHolder = new HomeRlViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.sharchdeals_item, parent, false), mHomeRlItemClickListener);
+        HomeRlViewHolder cityViewHolder = new HomeRlViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.sharchdeals_item, parent, false), mHomeRlItemClickListener);
 
         return cityViewHolder;
     }

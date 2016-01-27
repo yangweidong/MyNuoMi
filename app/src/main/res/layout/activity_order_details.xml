@@ -8,6 +8,6 @@
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/details_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+        android:layout_height="300dip"></com.jcodecraeer.xrecyclerview.XRecyclerView>
 
 </RelativeLayout>

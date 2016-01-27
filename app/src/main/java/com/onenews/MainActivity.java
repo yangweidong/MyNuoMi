@@ -15,6 +15,7 @@ import com.onenews.activity.BaseActivity;
 import com.onenews.activity.CityActivity;
 import com.onenews.activity.SettingsActivity;
 import com.onenews.adapter.TestFragmentAdapter;
+import com.onenews.fragment.FlauntFragment;
 import com.onenews.fragment.HomeFragment;
 import com.onenews.fragment.PersonalCenterFragment;
 import com.onenews.fragment.TestFragment;
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
         mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
 
         mAdapter.addFrag(HomeFragment.newInstance());
-        mAdapter.addFrag(new TestFragment());
+        mAdapter.addFrag(new FlauntFragment());
         mAdapter.addFrag(new TestFragment());
         mAdapter.addFrag(new PersonalCenterFragment());
 

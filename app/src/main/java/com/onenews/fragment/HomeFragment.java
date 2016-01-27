@@ -117,12 +117,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mHomeRl_View.setArrowImageView(R.drawable.iconfont_downgrey);
 
 
-        ViewPager header = new ViewPager(getActivity());//(ViewPager) LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header, mHomeRl_View, false);
+        View header = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header, mHomeRl_View, false);//new ViewPager(getActivity());//
         RecyclerView.LayoutParams headerParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, Dip2Px.dip2px(getActivity(), 200));
         header.setLayoutParams(headerParams);
 
 
-        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme11, header, false);
+        ViewPager viewPager = (ViewPager) header.findViewById(R.id.home_viewpager);
+
+        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme11, viewPager, false);
 
 
         mHeaderGridLayout = new GridView(getActivity());
@@ -131,7 +133,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 //        mHeaderGridLayout.setAdapter(new );
 
 
-        View view2 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme2, header, false);
+        View view2 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme2, viewPager, false);
         mHomeViewPagerViews.add(view1);
         mHomeViewPagerViews.add(view2);
 
@@ -145,7 +147,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 //        header.findViewById(R.id.Cate).setOnClickListener(this);
 //        header.findViewById(R.id.Film).setOnClickListener(this);
 
-        header.setAdapter(new HomeViewPagerAdapter(mHomeViewPagerViews));
+        viewPager.setAdapter(new HomeViewPagerAdapter(mHomeViewPagerViews));
 
 
         mHomeRl_View.addHeaderView(header);
