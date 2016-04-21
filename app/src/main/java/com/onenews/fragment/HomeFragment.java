@@ -16,27 +16,23 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenews.R;
 import com.onenews.activity.ClassIfySearchActivity;
 import com.onenews.activity.OrderDetailsActivity;
-import com.onenews.activity.ShopInfoActivity;
 import com.onenews.adapter.HomeRlAdapter;
 import com.onenews.adapter.HomeViewPagerAdapter;
 import com.onenews.bean.SharChdeals;
+import com.onenews.home.HomeContract;
 import com.onenews.http.Api;
-import com.onenews.presenter.HomePresenter;
-import com.onenews.presenter.impl.HomePresenterImpl;
 import com.onenews.utils.Dip2Px;
 import com.onenews.utils.LL;
-import com.onenews.view.HomeView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener, HomeView {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, HomeContract.View {
     XRecyclerView mHomeRl_View;
     HomeRlAdapter mHomeRl_Adapter;
     List<SharChdeals.DataEntity.DealsEntity> mHomeAdapterDatas = new ArrayList<>();
-    private HomePresenter mHomePresenter;
 
     @Override
     public void onAttach(Context context) {
@@ -55,9 +51,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         }
     }
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -73,8 +66,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private String mBizarea_ids = "";//商圈id, 支持多个查询， 多个商圈用,连接
     private String mLocation = "";//商圈id, 支持多个查询， 多个商圈用,连接
     private String mkeyword = "";//关键词，搜索商品名
-    private String mRadius = "";//基于location,搜索的半径范围，单位是米。 可选（若传入该参数，必须同时传入合法的经纬度坐标， radius字段默认半径3000米）
-    private String mSort = "";//按照某种规则对返回的结果排序, 默认值为0。0:综合排序 1：价格低优先， 2：价格高优先， 3：折扣高优先， 4：销量高优先， 5：用户坐标距离近优先， 6：最新发布优先,8:用户评分高优先
+    private String mRadius = "";//基于location,搜索的半径范围，单位是米。 可选（若传入该参数，必须同时传入合法的经纬度坐标，
+    // radius字段默认半径3000米）
+    private String mSort = "";//按照某种规则对返回的结果排序, 默认值为0。0:综合排序 1：价格低优先， 2：价格高优先， 3：折扣高优先， 4：销量高优先，
+    // 5：用户坐标距离近优先， 6：最新发布优先,8:用户评分高优先
     private String mPage = "";//分页数据的页码, 如不传默认是1
     private String mPage_size = "20";//每页返回的团单结果条目数上限，最小值1，最大值50，如不传入默认为10
     private String mIs_reservation_required = "";//是否筛选出免预约,否: 默认不传 0为不筛选 1为筛选出支持免预约的团单
@@ -94,7 +89,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         params.put("page", mPage);
         params.put("page_size", mPage_size);
         params.put("is_reservation_required", mIs_reservation_required);
-        mHomePresenter.loadData(Api.SEARCHDEALS, params);
+
+
+        mPresenter.loadHomeData(Api.SEARCHDEALS, params);
     }
 
 
@@ -107,7 +104,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     void initView(View view) {
 
-        mHomePresenter = new HomePresenterImpl(this);
 
         mHomeRl_View = (XRecyclerView) view.findViewById(R.id.home_rl);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -118,23 +114,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mHomeRl_View.setArrowImageView(R.drawable.iconfont_downgrey);
 
 
-        View header = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header, mHomeRl_View, false);//new ViewPager(getActivity());//
-        RecyclerView.LayoutParams headerParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, Dip2Px.dip2px(getActivity(), 200));
+        View header = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header,
+                mHomeRl_View, false);//new ViewPager(getActivity());//
+        RecyclerView.LayoutParams headerParams = new RecyclerView.LayoutParams(RecyclerView
+                .LayoutParams.MATCH_PARENT, Dip2Px.dip2px(getActivity(), 200));
         header.setLayoutParams(headerParams);
 
 
         ViewPager viewPager = (ViewPager) header.findViewById(R.id.home_viewpager);
 
-        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme11, viewPager, false);
+        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme11,
+                viewPager, false);
 
 
         mHeaderGridLayout = new GridView(getActivity());
-        RecyclerView.LayoutParams gridParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
+        RecyclerView.LayoutParams gridParams = new RecyclerView.LayoutParams(RecyclerView
+                .LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
         mHeaderGridLayout.setLayoutParams(gridParams);
-//        mHeaderGridLayout.setAdapter(new );
 
 
-        View view2 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme2, viewPager, false);
+        View view2 = LayoutInflater.from(getActivity()).inflate(R.layout.viewpager_itme2,
+                viewPager, false);
         mHomeViewPagerViews.add(view1);
         mHomeViewPagerViews.add(view2);
 
@@ -144,9 +144,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         cate_ll.setOnClickListener(this);
         Film.setOnClickListener(this);
 
-
-//        header.findViewById(R.id.Cate).setOnClickListener(this);
-//        header.findViewById(R.id.Film).setOnClickListener(this);
 
         viewPager.setAdapter(new HomeViewPagerAdapter(mHomeViewPagerViews));
 
@@ -188,16 +185,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
-    @Override
-    public void addData(SharChdeals response) {
-        LL.e("数据回来了......");
-
-        mHomeAdapterDatas.clear();
-        mHomeAdapterDatas.addAll(response.getData().getDeals());
-
-        mHomeRl_Adapter.notifyDataSetChanged();
-
-    }
 
     @Override
     public void hideProgress() {
@@ -205,10 +192,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
+    HomeContract.Presenter mPresenter;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void shoError(String msg) {
-        LL.e("显示错误框......");
 
     }
 
@@ -230,4 +222,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         }
     }
 
+    @Override
+    public void setPresenter(HomeContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void showData(SharChdeals response) {
+        mHomeAdapterDatas.clear();
+        mHomeAdapterDatas.addAll(response.getData().getDeals());
+
+        mHomeRl_Adapter.notifyDataSetChanged();
+    }
 }

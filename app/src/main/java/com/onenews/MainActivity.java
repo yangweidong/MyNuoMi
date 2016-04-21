@@ -19,6 +19,8 @@ import com.onenews.fragment.FlauntFragment;
 import com.onenews.fragment.HomeFragment;
 import com.onenews.fragment.PersonalCenterFragment;
 import com.onenews.fragment.TestFragment;
+import com.onenews.home.FlauntPresenter;
+import com.onenews.home.HomePresenter;
 import com.onenews.presenter.MainPresenter;
 import com.onenews.utils.LL;
 import com.onenews.view.MainView;
@@ -74,9 +76,15 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
 
     private void setupViews() {
         mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
+        //1
+        HomeFragment homeFragment = HomeFragment.newInstance();
+        HomePresenter homePresenter = new HomePresenter(homeFragment);
+        mAdapter.addFrag(homeFragment);
+        //2
+        FlauntFragment flauntFragment = FlauntFragment.newInstance();
+        mAdapter.addFrag(flauntFragment);
+        FlauntPresenter flauntPresenter = new FlauntPresenter(flauntFragment);
 
-        mAdapter.addFrag(HomeFragment.newInstance());
-        mAdapter.addFrag(new FlauntFragment());
         mAdapter.addFrag(new TestFragment());
         mAdapter.addFrag(new PersonalCenterFragment());
 

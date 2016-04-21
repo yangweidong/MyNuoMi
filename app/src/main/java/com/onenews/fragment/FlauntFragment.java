@@ -8,9 +8,8 @@ import android.view.View;
 import com.onenews.R;
 import com.onenews.adapter.FlauntFragmentAdapter;
 import com.onenews.bean.FlauntBean;
+import com.onenews.home.FlauntContract;
 import com.onenews.http.Api;
-import com.onenews.presenter.FlauntPresenter;
-import com.onenews.presenter.impl.FlauntPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,14 +19,14 @@ import java.util.Map;
 /**
  * Created by wuyexiong on 4/25/15.
  */
-public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.ResultArrayEntity>> {
+public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.ResultArrayEntity>>
+        implements FlauntContract.View {
 
     List<FlauntBean.DataEntity.ResultArrayEntity> mFlauntBean = new ArrayList<>();
-    FlauntPresenter mFlauntPresenter;
+//    FlauntPresenter mFlauntPresenter;
 
-    public static FlauntFragment newInstance(String content) {
-        FlauntFragment fragment = new FlauntFragment();
-        return fragment;
+    public static FlauntFragment newInstance() {
+        return new FlauntFragment();
     }
 
 
@@ -43,30 +42,31 @@ public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.Resu
 
     RecyclerView test2_rl;
     FlauntFragmentAdapter flauntFragmentAdapter;
+
     @Override
     void initView(View view) {
         test2_rl = (RecyclerView) view.findViewById(R.id.test2_rl);
 
         flauntFragmentAdapter = new FlauntFragmentAdapter(mFlauntBean);
 
-        StaggeredGridLayoutManager mgr = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager mgr = new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL);
         test2_rl.setLayoutManager(mgr);
         test2_rl.setAdapter(flauntFragmentAdapter);
 
-        mFlauntPresenter = new FlauntPresenterImpl(this);
+//        mFlauntPresenter = new FlauntPresenterImpl(this);
 
     }
 
     @Override
     void getData() {
-
         Map<String, String> params = new HashMap<String, String>();
         params.put("word", "美食分享");
         params.put("pn", "0");
         params.put("rn", "20");
         params.put("ie", "utf-8");
 
-        mFlauntPresenter.loadData(Api.SEARCH,params);
+        mPresenter.loadFlauntData(Api.SEARCH, params);
     }
 
 
@@ -77,9 +77,9 @@ public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.Resu
 
     @Override
     public void addData(List<FlauntBean.DataEntity.ResultArrayEntity> response) {
-        mFlauntBean.addAll(response);
-        flauntFragmentAdapter.notifyDataSetChanged();
+
     }
+
 
     @Override
     public void hideProgress() {
@@ -89,5 +89,18 @@ public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.Resu
     @Override
     public void shoError(String msg) {
 
+    }
+
+    @Override
+    public void showData(List<FlauntBean.DataEntity.ResultArrayEntity> response) {
+        mFlauntBean.addAll(response);
+        flauntFragmentAdapter.notifyDataSetChanged();
+    }
+
+    FlauntContract.Presenter mPresenter;
+
+    @Override
+    public void setPresenter(FlauntContract.Presenter presenter) {
+        mPresenter = presenter;
     }
 }
