@@ -20,7 +20,7 @@ import com.onenews.adapter.HomeRlAdapter;
 import com.onenews.adapter.HomeViewPagerAdapter;
 import com.onenews.bean.SharChdeals;
 import com.onenews.home.HomeContract;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.utils.Dip2Px;
 import com.onenews.utils.LL;
 
@@ -91,7 +91,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         params.put("is_reservation_required", mIs_reservation_required);
 
 
-        mPresenter.loadHomeData(Api.SEARCHDEALS, params);
+        mPresenter.loadHomeData(ApiUrl.SEARCHDEALS, params);
     }
 
 

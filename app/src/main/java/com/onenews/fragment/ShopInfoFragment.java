@@ -8,7 +8,7 @@ import com.onenews.R;
 import com.onenews.activity.ShopImage;
 import com.onenews.adapter.ShopInfoAdapter;
 import com.onenews.bean.ShopInfoBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.presenter.ShopInfoPresenter;
 import com.onenews.presenter.impl.ShopInfoPresenterImpl;
 import com.onenews.utils.LL;
@@ -65,7 +65,7 @@ public class ShopInfoFragment extends BaseShopInfoFragment<ShopInfoBean> impleme
     void getData() {
         Map<String, String> params = new HashMap<>();
         params.put("shop_id", shopId);
-        mShopInfoPresenter.getShopInfo(Api.SHOP_INFO, params);
+        mShopInfoPresenter.getShopInfo(ApiUrl.SHOP_INFO, params);
 
         //mShopInfoPresenter.getShopImage(shopId);
     }

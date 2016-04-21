@@ -3,7 +3,7 @@ package com.onenews.model.impl;
 import com.google.gson.Gson;
 import com.onenews.bean.DistrictBean;
 import com.onenews.bean.HomeShop;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.model.ClassIfysearchModel;
 import com.onenews.presenter.OnClassIfysearchListener;
 import com.onenews.utils.LL;
@@ -58,7 +58,7 @@ public class ClassIfysearchModelImpl implements ClassIfysearchModel {
 
     @Override
     public void getDistricts(String url, Map<String, String> params, OnClassIfysearchListener onClassIfysearchListener) {
-        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").params(params).build().execute(new RegionCallback());
+        OkHttpUtils.get().url(ApiUrl.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").params(params).build().execute(new RegionCallback());
     }
 
 

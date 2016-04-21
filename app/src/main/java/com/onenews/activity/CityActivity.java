@@ -16,7 +16,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.onenews.R;
 import com.onenews.adapter.CityAdapter;
 import com.onenews.bean.CityBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.utils.LL;
 import com.onenews.widgets.DividerItemDecoration;
 import com.onenews.widgets.NuoMiMaterialSearchView;
@@ -136,7 +136,7 @@ public class CityActivity extends BaseActivity {
 
         OkHttpUtils
                 .get()
-                .url(Api.CITYS)
+                .url(ApiUrl.CITYS)
                 .addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82")
                 .build()
                 .execute(new CityCallback());

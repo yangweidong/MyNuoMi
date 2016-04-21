@@ -17,7 +17,7 @@ import com.onenews.adapter.ListDropDownAdapter;
 import com.onenews.bean.HomeShop;
 import com.onenews.bean.SharChdeals;
 import com.onenews.bean.SortBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.presenter.ClassIfysearchPresenter;
 import com.onenews.presenter.impl.ClassIfysearchPresenterImpl;
 import com.onenews.test.ChildItem;
@@ -171,13 +171,13 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
         params.put("page", page);
         params.put("page_size", page_size);
         params.put("deals_per_shop", deals_per_shop);
-        mClassIfysearchPresenter.loadBusiness(Api.SEARCHSHOPS, params);
+        mClassIfysearchPresenter.loadBusiness(ApiUrl.SEARCHSHOPS, params);
 
 
         Map<String, String> districtsParams = new HashMap<String, String>();
         districtsParams.put("city_id", App.mCityID);
 
-        mClassIfysearchPresenter.loadDistricts(Api.DISTRICTS, districtsParams);
+        mClassIfysearchPresenter.loadDistricts(ApiUrl.DISTRICTS, districtsParams);
 
     }
 

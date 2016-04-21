@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.onenews.adapter.RegionAdapter;
 import com.onenews.bean.RegionBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.utils.LL;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -52,7 +52,7 @@ public class RegionActivity extends ListActivity {
 
     public void getRegionData(String city_id) {
 
-        OkHttpUtils.get().url(Api.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id",city_id).build().execute(new RegionCallback());
+        OkHttpUtils.get().url(ApiUrl.DISTRICTS).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").addParams("city_id",city_id).build().execute(new RegionCallback());
 
 
     }

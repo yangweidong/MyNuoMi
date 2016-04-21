@@ -8,7 +8,7 @@ import com.onenews.R;
 import com.onenews.activity.BaseActivity;
 import com.onenews.adapter.ClassIfyAdapter;
 import com.onenews.bean.ClassifyBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.utils.LL;
 import com.onenews.widgets.LinkageView;
 import com.squareup.okhttp.Request;
@@ -63,7 +63,7 @@ public class TestActivit extends BaseActivity {
     RightAdapter mRightAdapter;
 
     private void getClassIfy() {
-        OkHttpUtils.get().url(Api.CLASSIFY).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").build().execute(new ClassifyCallback());
+        OkHttpUtils.get().url(ApiUrl.CLASSIFY).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").build().execute(new ClassifyCallback());
 
     }
 

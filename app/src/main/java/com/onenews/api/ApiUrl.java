@@ -1,9 +1,10 @@
-package com.onenews.http;
+package com.onenews.api;
 
 /**
  * Created by yangweidong on 15/12/30.
  */
-public class Api {
+public class ApiUrl {
+   private String APIKEY = "abcfe469f2ede2b495055162e97d8b82";
 
    public static final String CITYS = "http://apis.baidu.com/baidunuomi/openapi/cities";//糯米团单城市接口
    public static final String DISTRICTS = "http://apis.baidu.com/baidunuomi/openapi/districts";//糯米团单行政区接口

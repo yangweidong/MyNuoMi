@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,7 @@ import com.onenews.R;
 import com.onenews.adapter.OrderDetailsAdapter;
 import com.onenews.bean.OrderDetailsBean;
 import com.onenews.bean.OrderDetailsImageBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.presenter.OrderDetailsPresenter;
 import com.onenews.presenter.impl.OrderDetailsPresenterImpl;
 import com.onenews.utils.LL;
@@ -189,7 +188,7 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsBean> {
     protected void getData() {
         Map<String, String> parmas = new HashMap<>();
         parmas.put("deal_id", orderid);
-        mOrderDetailsPresenter.loadData(Api.DEALDETAIL, parmas);
+        mOrderDetailsPresenter.loadData(ApiUrl.DEALDETAIL, parmas);
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.onenews.bean.SharChdeals;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -31,7 +31,7 @@ public class HomePresenter implements HomeContract.Presenter {
     public void loadHomeData(String url, Map<String, String> params) {
         OkHttpUtils
                 .get()
-                .url(Api.SEARCHDEALS)
+                .url(ApiUrl.SEARCHDEALS)
                 .addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82")
                 .params(params)
                 .build()

@@ -2,7 +2,7 @@ package com.onenews.model.impl;
 
 import com.google.gson.Gson;
 import com.onenews.bean.ShopOrderListBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.model.ShopOrderListModel;
 import com.onenews.presenter.ShopOrderListListener;
 import com.onenews.utils.LL;
@@ -25,7 +25,7 @@ public class ShopOrderListModelImpl implements ShopOrderListModel {
     public void getShopOrderList(String url, Map<String, String> params,
                                  ShopOrderListListener shopOrderListListener) {
         mShopOrderListListener = shopOrderListListener;
-        OkHttpUtils.get().url(Api.SHOP_ORDER_LIST).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").
+        OkHttpUtils.get().url(ApiUrl.SHOP_ORDER_LIST).addHeader("apikey", "abcfe469f2ede2b495055162e97d8b82").
                 params(params).build().execute(new ShopOrderCallback());
 
     }

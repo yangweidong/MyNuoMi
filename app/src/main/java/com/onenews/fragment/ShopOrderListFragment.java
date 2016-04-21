@@ -1,14 +1,12 @@
 package com.onenews.fragment;
 
 import android.content.Intent;
-import android.content.res.XmlResourceParser;
 import android.view.View;
 
-import com.onenews.R;
 import com.onenews.activity.OrderDetailsActivity;
 import com.onenews.adapter.ShopOrderListFragmentAdapter;
 import com.onenews.bean.ShopOrderListBean;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 import com.onenews.presenter.ShopOrderListPresenter;
 import com.onenews.presenter.impl.ShopOrderListPresenterImpl;
 
@@ -44,7 +42,7 @@ public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBea
     void getData() {
         Map<String, String> parmas = new HashMap<>();
         parmas.put("shop_id", shopId);
-        mShopOrderListPresenter.getShopOrderData(Api.SHOP_ORDER_LIST, parmas);
+        mShopOrderListPresenter.getShopOrderData(ApiUrl.SHOP_ORDER_LIST, parmas);
     }
 
 

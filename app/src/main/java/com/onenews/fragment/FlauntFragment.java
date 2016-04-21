@@ -9,7 +9,7 @@ import com.onenews.R;
 import com.onenews.adapter.FlauntFragmentAdapter;
 import com.onenews.bean.FlauntBean;
 import com.onenews.home.FlauntContract;
-import com.onenews.http.Api;
+import com.onenews.api.ApiUrl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,13 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wuyexiong on 4/25/15.
+ * Created by yangweidong on 16/1/20.
  */
 public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.ResultArrayEntity>>
         implements FlauntContract.View {
 
     List<FlauntBean.DataEntity.ResultArrayEntity> mFlauntBean = new ArrayList<>();
-//    FlauntPresenter mFlauntPresenter;
 
     public static FlauntFragment newInstance() {
         return new FlauntFragment();
@@ -54,7 +53,6 @@ public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.Resu
         test2_rl.setLayoutManager(mgr);
         test2_rl.setAdapter(flauntFragmentAdapter);
 
-//        mFlauntPresenter = new FlauntPresenterImpl(this);
 
     }
 
@@ -66,7 +64,7 @@ public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.Resu
         params.put("rn", "20");
         params.put("ie", "utf-8");
 
-        mPresenter.loadFlauntData(Api.SEARCH, params);
+        mPresenter.loadFlauntData(ApiUrl.SEARCH, params);
     }
 
 
