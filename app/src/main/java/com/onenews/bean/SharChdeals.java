@@ -91,7 +91,7 @@ public class SharChdeals {
         }
 
         public static class DealsEntity {
-            private int deal_id;
+            private String deal_id;
             private String image;
             private String tiny_image;
             private String title;
@@ -121,7 +121,7 @@ public class SharChdeals {
 
             private List<ShopsEntity> shops;
 
-            public void setDeal_id(int deal_id) {
+            public void setDeal_id(String deal_id) {
                 this.deal_id = deal_id;
             }
 
@@ -201,7 +201,7 @@ public class SharChdeals {
                 this.shops = shops;
             }
 
-            public int getDeal_id() {
+            public String getDeal_id() {
                 return deal_id;
             }
 

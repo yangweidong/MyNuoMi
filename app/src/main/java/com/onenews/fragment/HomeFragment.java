@@ -15,6 +15,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenews.R;
 import com.onenews.activity.ClassIfySearchActivity;
+import com.onenews.activity.OrderDetailsActivity;
 import com.onenews.activity.ShopInfoActivity;
 import com.onenews.adapter.HomeRlAdapter;
 import com.onenews.adapter.HomeViewPagerAdapter;
@@ -159,9 +160,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mHomeRl_Adapter.setOnItemClickListener(new HomeRlAdapter.HomeRlItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                Intent intent = new Intent(getActivity(), ShopInfoActivity.class);
-                String murl = mHomeAdapterDatas.get(postion).getDeal_murl();
-                intent.putExtra("murl", murl);
+                Intent intent = new Intent(getActivity(), OrderDetailsActivity.class);
+                String orderid = mHomeAdapterDatas.get(postion).getDeal_id();
+                intent.putExtra("orderid", orderid);
                 getActivity().startActivity(intent);
             }
         });

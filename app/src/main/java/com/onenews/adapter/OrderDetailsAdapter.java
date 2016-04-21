@@ -6,9 +6,11 @@ import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenews.R;
+import com.onenews.bean.OrderDetailsImageBean;
 import com.onenews.utils.LL;
 
 import java.util.List;
@@ -18,9 +20,9 @@ import java.util.List;
  */
 public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapter.ViewHolder> {
 
-    List<String> mListData;
+    List<OrderDetailsImageBean> mListData;
 
-    public OrderDetailsAdapter(List<String> mListData) {
+    public OrderDetailsAdapter(List<OrderDetailsImageBean> mListData) {
         this.mListData = mListData;
     }
 
@@ -28,6 +30,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.order_details_item,
                 viewGroup, false);
+
         return new ViewHolder(view, shopOrderRlItemClickListener);
     }
 
@@ -42,39 +45,12 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-//        viewHolder.title.setText(mListData.get(i).getMin_title());
-//        viewHolder.description.setText(mListData.get(i).getDescription());
-//
-//
-//        int promotion_price_int = Integer.valueOf(mListData.get(i).getPromotion_price()) / 100;
-//        int market_price_int = Integer.valueOf(mListData.get(i).getCurrent_price()) / 100;
-//        int discount_number = market_price_int - promotion_price_int;
-//
-//        String promotion_price_str = "￥" + (promotion_price_int);//活动价格
-//        String market_price_str = market_price_int + "";//售卖价格
-//
-//
-//        mSS = new SpannableString(promotion_price_str);
-//        mSS.setSpan(new AbsoluteSizeSpan(20, true), 0, promotion_price_str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-////        msp.setSpan(new ForegroundColorSpan(Color.RED), 0, promotion_price.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-////        msp.setSpan(new StrikethroughSpan(),promotion_price.length(),promotion_price.length()+market_price.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//        viewHolder.market_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//
-//        viewHolder.market_price.setText(market_price_str);
-//
-//        viewHolder.price.setText(mSS);
-//        viewHolder.price.setMovementMethod(LinkMovementMethod.getInstance());
-//
-//        viewHolder.score.setText(mListData.get(i).getScore() + "分");
-//
-//
-//        viewHolder.discount_number.setText("立减" + discount_number);
+
 
         LL.e("添加视图: " + i);
-        Uri uri = Uri.parse(mListData.get(i));
+        Uri uri = Uri.parse(mListData.get(i).getImageUrl());
         viewHolder.rl_image.setImageURI(uri);
+        viewHolder.details.setText(mListData.get(i).getDetails());
 
 
     }
@@ -92,7 +68,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         SimpleDraweeView rl_image;
-//        TextView title;
+        TextView details;
 //        TextView description;
 //        TextView market_price;
 //        TextView discount_number;
@@ -105,7 +81,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
             super(itemView);
 //            this.shopOrderRlItemClickListener = shopOrderRlItemClickListener;
             rl_image = (SimpleDraweeView) itemView.findViewById(R.id.rl_image);
-//            title = (TextView) itemView.findViewById(R.id.title);
+            details = (TextView) itemView.findViewById(R.id.details);
 //            image = (SimpleDraweeView) itemView.findViewById(R.id.image);
 //            description = (TextView) itemView.findViewById(R.id.description);
 //            market_price = (TextView) itemView.findViewById(R.id.market_price);

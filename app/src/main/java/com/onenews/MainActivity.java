@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
 
     @Override
     protected void initView() {
+
 //        setContentView(R.layout.test);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -67,6 +68,8 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
 //        showShoppingPage();
         setupViews();
     }
+
+
 
 
     private void setupViews() {

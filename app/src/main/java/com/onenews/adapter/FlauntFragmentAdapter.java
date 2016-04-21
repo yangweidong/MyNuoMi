@@ -5,29 +5,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenews.R;
+import com.onenews.bean.FlauntBean;
+
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import java.util.List;
 
 /**
  * Created by yangweidong on 16/1/26.
  */
-public class TestFragment2Adapter extends RecyclerView.Adapter<TestFragment2Adapter.ViewHolder> {
+public class FlauntFragmentAdapter extends RecyclerView.Adapter<FlauntFragmentAdapter.ViewHolder> {
 
-    private List<String> mDatas;
+    private List<FlauntBean.DataEntity.ResultArrayEntity> mFlauntBean;
 
-    public TestFragment2Adapter(List<String> mDatas) {
-        this.mDatas = mDatas;
+    public FlauntFragmentAdapter(List<FlauntBean.DataEntity.ResultArrayEntity> flauntBean) {
+        this.mFlauntBean = flauntBean;
     }
-
-//    @Override
-//    public void getItemOffsets (Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-//
-//        outRect.set(0, vertOverlap, 0, 0);
-//
-//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,24 +38,29 @@ public class TestFragment2Adapter extends RecyclerView.Adapter<TestFragment2Adap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Uri uri = Uri.parse(mDatas.get(position));
-        holder.textView.setImageURI(uri);
+        Uri uri = Uri.parse(mFlauntBean.get(position).getObjUrl());
+        holder.simpleDraweeView.setImageURI(uri);
+
+        holder.textView.setHtmlFromString(mFlauntBean.get(position).getDesc().toString(), new HtmlTextView.LocalImageGetter());
     }
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mFlauntBean.size();
     }
 
     //自定义的ViewHolder,减少findViewById调用次数
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        SimpleDraweeView textView;
+        SimpleDraweeView simpleDraweeView;
+        HtmlTextView textView;
 
         //在布局中找到所含有的UI组件
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = (SimpleDraweeView) itemView.findViewById(R.id.test2_sdv);
+            simpleDraweeView = (SimpleDraweeView) itemView.findViewById(R.id.test2_sdv);
+            textView = (HtmlTextView) itemView.findViewById(R.id.describe);
+
         }
     }
 

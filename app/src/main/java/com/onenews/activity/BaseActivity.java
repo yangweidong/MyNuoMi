@@ -18,6 +18,8 @@ import com.onenews.view.BaseView;
 public abstract class BaseActivity<T> extends AppCompatActivity implements BaseView<T> {
     private LinearLayout rootLayout;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,9 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements BaseV
         }
     }
 
+    public void setToolbarTitle(String title){
+        getSupportActionBar().setTitle(title);
+    }
 
     /**
      * 是否显示Toolbar,如果需要定义自己的Toolbar,复写该方法,返回false
@@ -69,7 +74,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements BaseV
     public boolean isAddToolbar() {
         return true;
     }
-
 
     protected abstract int getLayout();
 

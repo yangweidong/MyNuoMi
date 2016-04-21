@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by yangweidong on 16/1/27.
  */
-public class ShowBean {
+public class FlauntBean {
 
     /**
      * code : 0

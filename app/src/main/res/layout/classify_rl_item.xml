@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dip"
-        android:background="@drawable/selector_row"
+        android:background="@android:color/transparent"
         android:orientation="horizontal">
 
 
@@ -27,14 +27,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dip"
-            android:background="@drawable/selector_row"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/sharchdeals_item_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_row"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="哈哈哈哈"
                 android:textSize="20sp" />
@@ -44,7 +42,6 @@
                 android:id="@+id/min_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_row"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="哈哈哈哈"
                 android:textSize="15sp" />
@@ -54,7 +51,6 @@
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_row"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="哈哈哈哈"
                 android:textSize="10sp" />

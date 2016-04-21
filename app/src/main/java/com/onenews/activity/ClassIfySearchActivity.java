@@ -82,7 +82,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
 
     @Override
     protected void initView() {
-
+        setTitle("美食");
 
         mClassIfysearchPresenter = new ClassIfysearchPresenterImpl(this);
 
@@ -98,7 +98,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
             @Override
             public void onItemClick(ChildItem childItem, int postion) {
                 mDropDownMenu.closeMenu();
-                Toast.makeText(ClassIfySearchActivity.this, "点击了", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ClassIfySearchActivity.this, "点击了", Toast.LENGTH_SHORT).show();
 //                district_ids = childItem.getmDistrict_ids();
             }
         });
@@ -183,17 +183,26 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
 
     //    String city_id = "100010000";
     String cat_ids = "326";
-    String subcat_ids = "962,994";
-    String district_ids = "394,395";
-    String bizarea_ids = "1322,1328";
-    String location = "116.418993,39.915597";
+    String subcat_ids = "";
+    String district_ids = "";
+    String bizarea_ids = "";
+    String location = "";
     String keyword = "";//美食
-    String radius = "30000";
-    String page = "1";
-    String page_size = "20";
-    String deals_per_shop = "20";
+    String radius = "";
+    String page = "";
+    String page_size = "";
+    String deals_per_shop = "";
 
-
+//    String cat_ids = "326";
+//    String subcat_ids = "962,994";
+//    String district_ids = "394,395";
+//    String bizarea_ids = "1322,1328";
+//    String location = "116.418993,39.915597";
+//    String keyword = "";//美食
+//    String radius = "30000";
+//    String page = "1";
+//    String page_size = "20";
+//    String deals_per_shop = "20";
     @Override
     public void addDistricts(List<FatherItem> fatherItems) {
         mRegionSelector.setData(fatherItems);

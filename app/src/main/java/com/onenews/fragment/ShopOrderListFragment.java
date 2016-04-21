@@ -1,8 +1,10 @@
 package com.onenews.fragment;
 
 import android.content.Intent;
+import android.content.res.XmlResourceParser;
 import android.view.View;
 
+import com.onenews.R;
 import com.onenews.activity.OrderDetailsActivity;
 import com.onenews.adapter.ShopOrderListFragmentAdapter;
 import com.onenews.bean.ShopOrderListBean;
@@ -68,7 +70,6 @@ public class ShopOrderListFragment extends BaseShopInfoFragment<ShopOrderListBea
 
     @Override
     public void shoError(String msg) {
-
     }
     @Override
     public void onItemClick(View view, int postion) {
