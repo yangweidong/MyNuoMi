@@ -41,6 +41,7 @@
         <activity
             android:name=".activity.OrderDetailsActivity"
             android:taskAffinity=""></activity>
+        <activity android:name=".activity.TestActivity"></activity>
     </application>
 
 </manifest>

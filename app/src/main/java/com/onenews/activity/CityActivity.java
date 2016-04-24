@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +14,8 @@ import com.google.gson.Gson;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.onenews.R;
 import com.onenews.adapter.CityAdapter;
-import com.onenews.bean.CityBean;
 import com.onenews.api.ApiUrl;
+import com.onenews.bean.CityBean;
 import com.onenews.utils.LL;
 import com.onenews.widgets.DividerItemDecoration;
 import com.onenews.widgets.NuoMiMaterialSearchView;
@@ -29,7 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityActivity extends BaseActivity {
+public class CityActivity extends com.onenews.remodeling.activity.BaseActivity {
     RecyclerView city_rl;
     List<CityBean.CitiesEntity> mCitiesEntity = new ArrayList<>();
     CityAdapter mCityAdapter;
@@ -48,34 +47,21 @@ public class CityActivity extends BaseActivity {
 
     String[] suggestions;
 
-    @Override
-    public boolean isAddToolbar() {
-        return false;
-    }
 
     @Override
     protected void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("城市列表");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         city_rl = (RecyclerView) findViewById(R.id.city_rl);
 
         city_rl.setLayoutManager(new LinearLayoutManager(this));
-        city_rl.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        city_rl.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration
+                .VERTICAL_LIST));
         mCityAdapter = new CityAdapter(CityActivity.this, mCitiesEntity);
         mCityAdapter.setOnItemClickListener(new CityAdapter.MyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                Toast.makeText(CityActivity.this, "" + mCitiesEntity.get(postion).getCity_name(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CityActivity.this, "" + mCitiesEntity.get(postion).getCity_name(),
+                        Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent();
                 CityBean.CitiesEntity citiesEntity = mCitiesEntity.get(postion);
@@ -98,7 +84,8 @@ public class CityActivity extends BaseActivity {
         searchView.setCursorDrawable(R.drawable.custom_cursor);
         searchView.setEllipsize(true);
         searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
-        searchView.setmNuoMiOnItemClickListener(new NuoMiMaterialSearchView.NuoMiOnItemClickListener() {
+        searchView.setmNuoMiOnItemClickListener(new NuoMiMaterialSearchView
+                .NuoMiOnItemClickListener() {
             @Override
             public void onItemClick(String string) {
                 if (searchView.isSearchOpen()) {
@@ -169,7 +156,7 @@ public class CityActivity extends BaseActivity {
                 suggestions[i] = response.getCities().get(i).getCity_name();
             }
             searchView.setSuggestions(suggestions);
-
+            displayContentView();
         }
     }
 
@@ -193,30 +180,10 @@ public class CityActivity extends BaseActivity {
     }
 
     @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void addData(Object response) {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-
-    @Override
-    public void shoError(String msg) {
-
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent
+                    .EXTRA_RESULTS);
             if (matches != null && matches.size() > 0) {
                 String searchWrd = matches.get(0);
                 if (!TextUtils.isEmpty(searchWrd)) {

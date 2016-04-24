@@ -58,8 +58,6 @@ public class FlauntPresenter implements FlauntContract.Presenter {
                         mFlauntView.showData(response.getData().getResultArray());
                     }
                 });
-
-
     }
 
 }

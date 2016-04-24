@@ -1,22 +1,21 @@
-package com.onenews.activity;
+package com.onenews.remodeling.activity;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import com.onenews.R;
-import com.onenews.view.BaseView;
+import com.onenews.remodeling.widgets.MultiStateView;
+
 
 /**
  * Created by yangweidong on 15/12/31.
  */
-public abstract class BaseActivity<T> extends AppCompatActivity implements BaseView<T> {
-    private LinearLayout rootLayout;
+public abstract class BaseActivity extends AppCompatActivity {
+    private MultiStateView rootLayout;
 
 
     @Override
@@ -34,21 +33,18 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements BaseV
                     + " not layout Res");
         }
 
+        super.setContentView(R.layout.activity_base_remodeling);
+        initToolbar();
 
-        if (isAddToolbar()) {
-            super.setContentView(R.layout.activity_base);
-            rootLayout = (LinearLayout) findViewById(R.id.root_layout);
-            if (rootLayout == null) {
-                return;
-            } else {
-                rootLayout.addView(View.inflate(this, getLayout(), null), new ViewGroup
-                        .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-                        .MATCH_PARENT));
-            }
-            initToolbar();
+
+        rootLayout = (MultiStateView) findViewById(R.id.layout);
+        if (rootLayout == null) {
+            return;
         } else {
-            setContentView(getLayout());
+            //TODO rootview 未改
+            rootLayout.addView(View.inflate(this, getLayout(), null));
         }
+        rootLayout.setViewState(MultiStateView.VIEW_STATE_LOADING);
         initData();
         initView();
         getData();
@@ -72,14 +68,35 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements BaseV
         getSupportActionBar().setTitle(title);
     }
 
+
     /**
-     * 是否显示Toolbar,如果需要定义自己的Toolbar,复写该方法,返回false
-     *
-     * @return
+     * 显示内容布局
      */
-    public boolean isAddToolbar() {
-        return true;
+    protected void displayContentView() {
+        rootLayout.setViewState(MultiStateView.VIEW_STATE_CONTENT);
     }
+
+    /**
+     * 显示错误布局
+     */
+    protected void displayErrorView() {
+        rootLayout.setViewState(MultiStateView.VIEW_STATE_ERROR);
+    }
+
+    /**
+     * 显示空布局
+     */
+    protected void displayEmptyView() {
+        rootLayout.setViewState(MultiStateView.VIEW_STATE_ERROR);
+    }
+
+    /**
+     * 显示加载布局
+     */
+    protected void displayLoadingView() {
+        rootLayout.setViewState(MultiStateView.VIEW_STATE_ERROR);
+    }
+
 
     protected abstract int getLayout();
 

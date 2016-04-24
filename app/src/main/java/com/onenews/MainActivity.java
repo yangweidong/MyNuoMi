@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.onenews.activity.BaseActivity;
-import com.onenews.activity.CityActivity;
 import com.onenews.activity.SettingsActivity;
 import com.onenews.adapter.TestFragmentAdapter;
 import com.onenews.fragment.FlauntFragment;
@@ -127,7 +126,7 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
         switch (item.getItemId()) {
             case R.id.action_city:
                 Toast.makeText(MainActivity.this, "点击城市", Toast.LENGTH_SHORT).show();
-                intent = new Intent(MainActivity.this, CityActivity.class);
+                intent = new Intent(MainActivity.this, com.onenews.activity.TestActivity.class);
                 startActivityForResult(intent, 1002);
                 break;
             case R.id.action_settings:
