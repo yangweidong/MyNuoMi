@@ -11,18 +11,18 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenews.R;
 import com.onenews.activity.ClassIfySearchActivity;
 import com.onenews.activity.OrderDetailsActivity;
 import com.onenews.adapter.HomeRlAdapter;
 import com.onenews.adapter.HomeViewPagerAdapter;
+import com.onenews.api.ApiUrl;
 import com.onenews.bean.SharChdeals;
 import com.onenews.home.HomeContract;
-import com.onenews.api.ApiUrl;
 import com.onenews.utils.Dip2Px;
 import com.onenews.utils.LL;
+import com.onenews.widgets.recyclerview.ProgressStyle;
+import com.onenews.widgets.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,7 +110,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mHomeRl_View.setLayoutManager(layoutManager);
         mHomeRl_View.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mHomeRl_View.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
         mHomeRl_View.setArrowImageView(R.drawable.iconfont_downgrey);
 
 

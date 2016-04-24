@@ -13,16 +13,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenews.R;
 import com.onenews.adapter.OrderDetailsAdapter;
+import com.onenews.api.ApiUrl;
 import com.onenews.bean.OrderDetailsBean;
 import com.onenews.bean.OrderDetailsImageBean;
-import com.onenews.api.ApiUrl;
 import com.onenews.presenter.OrderDetailsPresenter;
 import com.onenews.presenter.impl.OrderDetailsPresenterImpl;
 import com.onenews.utils.LL;
+import com.onenews.widgets.recyclerview.ProgressStyle;
+import com.onenews.widgets.recyclerview.XRecyclerView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -108,7 +108,6 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsBean> {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mXRecyclerView.setLayoutManager(layoutManager);
         mXRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mXRecyclerView.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
         mXRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
         mXRecyclerView.setPullRefreshEnabled(false);
         initHeader(mXRecyclerView);

@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder> {
     private Context mContext;
-    private  List<CityBean.CitiesEntity> mCityBean;
+    private List<CityBean.CitiesEntity> mCityBean;
 
     public CityAdapter(Context context, List<CityBean.CitiesEntity> cityBean) {
         this.mContext = context;
@@ -29,7 +29,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(mContext).inflate(R.layout.city_item, parent, false), mMyItemClickListener);
+        CityViewHolder cityViewHolder = new CityViewHolder(LayoutInflater.from(mContext).inflate
+                (R.layout.city_item, parent, false), mMyItemClickListener);
 
         return cityViewHolder;
     }

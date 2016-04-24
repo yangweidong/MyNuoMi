@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.onenews.activity.BaseActivity;
 import com.onenews.activity.SettingsActivity;
 import com.onenews.adapter.TestFragmentAdapter;
 import com.onenews.fragment.FlauntFragment;
@@ -22,10 +21,9 @@ import com.onenews.home.FlauntPresenter;
 import com.onenews.home.HomePresenter;
 import com.onenews.presenter.MainPresenter;
 import com.onenews.utils.LL;
-import com.onenews.view.MainView;
 import com.onenews.widgets.tab.MainBottomTabLayout;
 
-public class MainActivity extends BaseActivity implements MainView, View.OnClickListener {
+public class MainActivity extends com.onenews.activity.BaseActivity implements View.OnClickListener {
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
@@ -184,10 +182,6 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
                 });
     }
 
-    @Override
-    public void showShoppingPage() {
-        // getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, HomeFragment.newInstance()).commit();
-    }
 
     @Override
     public void showProgress() {

@@ -28,5 +28,6 @@
 
     <dimen name="google_play_cover_fitsSystemWindows">192dp</dimen>
     <dimen name="google_play_cover">192dp</dimen>
+    <dimen name="textandiconmargin">10dp</dimen>
 
 </resources>

@@ -9,15 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenews.App;
 import com.onenews.R;
 import com.onenews.adapter.ClassIfyRecyclerViewAdaptr;
 import com.onenews.adapter.ListDropDownAdapter;
+import com.onenews.api.ApiUrl;
 import com.onenews.bean.HomeShop;
 import com.onenews.bean.SharChdeals;
 import com.onenews.bean.SortBean;
-import com.onenews.api.ApiUrl;
 import com.onenews.presenter.ClassIfysearchPresenter;
 import com.onenews.presenter.impl.ClassIfysearchPresenterImpl;
 import com.onenews.test.ChildItem;
@@ -26,6 +25,7 @@ import com.onenews.utils.LL;
 import com.onenews.view.ClassIfySearchView;
 import com.onenews.widgets.LinkageView;
 import com.onenews.widgets.dropdownmenu.DropDownMenu;
+import com.onenews.widgets.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

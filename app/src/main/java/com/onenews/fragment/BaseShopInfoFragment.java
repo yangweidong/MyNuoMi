@@ -3,8 +3,8 @@ package com.onenews.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenews.R;
+import com.onenews.widgets.recyclerview.XRecyclerView;
 
 /**
  * Created by yangweidong on 16/1/20.
