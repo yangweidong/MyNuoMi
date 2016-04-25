@@ -1,7 +1,6 @@
 package com.onenews.adapter;
 
 import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenews.R;
+import com.onenews.base.BaseViewHolder;
+import com.onenews.base.adapter.BaseRlvAdapter;
 import com.onenews.bean.SharChdeals;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by yangweidong on 15/12/31.
  */
-public class HomeRlAdapter extends RecyclerView.Adapter<HomeRlAdapter.HomeRlViewHolder> {
+public class HomeRlAdapter extends BaseRlvAdapter<HomeRlAdapter.HomeRlViewHolder> {
     private List<SharChdeals.DataEntity.DealsEntity> mDealsEntities;
 
     public HomeRlAdapter(List<SharChdeals.DataEntity.DealsEntity> dealsEntities) {
@@ -45,7 +46,7 @@ public class HomeRlAdapter extends RecyclerView.Adapter<HomeRlAdapter.HomeRlView
         holder.min_title.setText(mDealsEntities.get(position).getMin_title());
         holder.description.setText(mDealsEntities.get(position).getDescription());
         Uri uri = Uri.parse(mDealsEntities.get(position).getImage());
-        holder.simpleDraweeView.setImageURI(uri);
+//        holder.simpleDraweeView.setImageURI(uri);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class HomeRlAdapter extends RecyclerView.Adapter<HomeRlAdapter.HomeRlView
         public void onItemClick(View view, int postion);
     }
 
-    class HomeRlViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class HomeRlViewHolder extends BaseViewHolder implements View.OnClickListener {
         TextView tv;
         TextView min_title;
         TextView description;

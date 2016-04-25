@@ -12,19 +12,19 @@ import android.view.ViewGroup;
  * Created by yangweidong on 16/1/13.
  */
 public abstract class BaseFragment<T> extends Fragment {
-    abstract int getLayout();
+    protected abstract int getLayoutId();
 
-    abstract void initData();
+    protected abstract void initData();
 
-    abstract void initView(View view);
+    protected abstract void initView(View view);
 
-    abstract void getData();
+    protected abstract void getData();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
     Bundle savedInstanceState) {
-        return inflater.inflate(getLayout(), container, false);
+        return inflater.inflate(getLayoutId(), container, false);
     }
 
     @Override

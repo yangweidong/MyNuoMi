@@ -1,10 +1,8 @@
 package com.onenews.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +11,14 @@ import android.widget.LinearLayout;
 
 import com.onenews.R;
 import com.onenews.activity.ClassIfySearchActivity;
-import com.onenews.activity.OrderDetailsActivity;
 import com.onenews.adapter.HomeRlAdapter;
 import com.onenews.adapter.HomeViewPagerAdapter;
 import com.onenews.api.ApiUrl;
+import com.onenews.base.adapter.BaseRlvAdapter;
+import com.onenews.base.fragment.BaseRlvFragment;
 import com.onenews.bean.SharChdeals;
 import com.onenews.home.HomeContract;
 import com.onenews.utils.Dip2Px;
-import com.onenews.utils.LL;
-import com.onenews.widgets.recyclerview.ProgressStyle;
 import com.onenews.widgets.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -29,27 +26,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener, HomeContract.View {
+public class HomeFragment extends BaseRlvFragment implements View.OnClickListener, HomeContract.View {
     XRecyclerView mHomeRl_View;
     HomeRlAdapter mHomeRl_Adapter;
     List<SharChdeals.DataEntity.DealsEntity> mHomeAdapterDatas = new ArrayList<>();
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-    }
 
 
     public static HomeFragment newInstance() {
@@ -75,7 +57,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private String mIs_reservation_required = "";//是否筛选出免预约,否: 默认不传 0为不筛选 1为筛选出支持免预约的团单
 
     @Override
-    void getData() {
+    protected void getData() {
         Map<String, String> params = new HashMap<String, String>();
         params.put("city_id", mSelectedCity_ID);
         params.put("cat_ids", mCat_ids);
@@ -100,19 +82,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     GridView mHeaderGridLayout;
 
-
     @Override
-    void initView(View view) {
-
-
-        mHomeRl_View = (XRecyclerView) view.findViewById(R.id.home_rl);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mHomeRl_View.setLayoutManager(layoutManager);
-        mHomeRl_View.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mHomeRl_View.setArrowImageView(R.drawable.iconfont_downgrey);
-
-
+    protected View getHeader() {
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header,
                 mHomeRl_View, false);//new ViewPager(getActivity());//
         RecyclerView.LayoutParams headerParams = new RecyclerView.LayoutParams(RecyclerView
@@ -147,47 +118,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         viewPager.setAdapter(new HomeViewPagerAdapter(mHomeViewPagerViews));
 
 
-        mHomeRl_View.addHeaderView(header);
+
+        return header;
+    }
+
+//    @Override
+//    protected void initRelView(View view) {
+//        mHomeRl_Adapter.setOnItemClickListener(new HomeRlAdapter.HomeRlItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int postion) {
+//                Intent intent = new Intent(getActivity(), OrderDetailsActivity.class);
+//                String orderid = mHomeAdapterDatas.get(postion).getDeal_id();
+//                intent.putExtra("orderid", orderid);
+//                getActivity().startActivity(intent);
+//            }
+//        });
+//    }
+
+
+    @Override
+    protected BaseRlvAdapter getRlvAdater() {
         mHomeRl_Adapter = new HomeRlAdapter(mHomeAdapterDatas);
-
-        mHomeRl_View.setAdapter(mHomeRl_Adapter);
-
-
-        mHomeRl_Adapter.setOnItemClickListener(new HomeRlAdapter.HomeRlItemClickListener() {
-            @Override
-            public void onItemClick(View view, int postion) {
-                Intent intent = new Intent(getActivity(), OrderDetailsActivity.class);
-                String orderid = mHomeAdapterDatas.get(postion).getDeal_id();
-                intent.putExtra("orderid", orderid);
-                getActivity().startActivity(intent);
-            }
-        });
+        return mHomeRl_Adapter;
     }
 
     @Override
-    int getLayout() {
-        return R.layout.fragment_home;
-    }
-
-    @Override
-    void initData() {
-
-    }
-
-    @Override
-    public void showProgress() {
-        LL.e("显示加载框......");
-    }
-
-    @Override
-    public void addData(Object response) {
-
-    }
-
-
-    @Override
-    public void hideProgress() {
-        LL.e("隐藏加载框......");
+    protected void initData() {
 
     }
 
@@ -198,10 +154,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         super.onResume();
     }
 
-    @Override
-    public void shoError(String msg) {
-
-    }
 
 
     @Override
