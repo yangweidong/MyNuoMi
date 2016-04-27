@@ -20,4 +20,24 @@ public interface BaseView<T> {
 
     void setPresenter(T presenter);
 
+//    /**
+//     * 加载中布局
+//     */
+//    void displayLoadingView();
+//    /**
+//     * 显示内容布局, 在网络成功后回调
+//     */
+//    void displayContentView();
+//
+//    /**
+//     * 显示错误布局, 获取网络数据失败或者错误
+//     */
+//    void displayErrorView();
+//
+//
+//    /**
+//     * 空布局
+//     */
+//    void displayEmptyView();
+
 }

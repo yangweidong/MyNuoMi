@@ -13,11 +13,20 @@ public interface HomeContract {
 
     interface View extends BaseView<Presenter> {
         void showData(SharChdeals response);
-
     }
 
     interface Presenter extends BasePresenter {
-        void loadHomeData(String url, Map<String, String> params);
+        /**
+         * 刷新数据,首次打开界面也是刷新
+         * @param event_tag 请求动作类型
+         * @param url
+         * @param params
+         */
+        void refreshData(int event_tag, String url, Map<String, String> params);
 
+        /**
+         * 加载更多
+         */
+        void addMoreData();
     }
 }

@@ -16,8 +16,6 @@ import com.onenews.remodeling.widgets.MultiStateView;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private MultiStateView rootLayout;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,17 +43,18 @@ public abstract class BaseActivity extends AppCompatActivity {
             rootLayout.addView(View.inflate(this, getLayout(), null));
         }
         rootLayout.setViewState(MultiStateView.VIEW_STATE_LOADING);
-        initData();
         initView();
+        initData();
         getData();
     }
 
+    Toolbar mToolbar;
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
@@ -68,6 +67,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
+    public Toolbar getTollbar() {
+        return mToolbar;
+    }
 
     /**
      * 显示内容布局
@@ -100,9 +102,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayout();
 
-    protected abstract void initData();
-
     protected abstract void initView();
+
+    /**
+     *
+     */
+    protected void initData() {
+    }
+
 
     protected abstract void getData();
 

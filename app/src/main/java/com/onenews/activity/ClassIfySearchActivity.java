@@ -15,7 +15,6 @@ import com.onenews.adapter.ClassIfyRecyclerViewAdaptr;
 import com.onenews.adapter.ListDropDownAdapter;
 import com.onenews.api.ApiUrl;
 import com.onenews.bean.HomeShop;
-import com.onenews.bean.SharChdeals;
 import com.onenews.bean.SortBean;
 import com.onenews.presenter.ClassIfysearchPresenter;
 import com.onenews.presenter.impl.ClassIfysearchPresenterImpl;
@@ -46,7 +45,7 @@ public class ClassIfySearchActivity extends BaseClassIfySearchActivity<HomeShop>
 
     ClassIfyRecyclerViewAdaptr mClassIfyContentAdapter;
 
-    List<SharChdeals.DataEntity.DealsEntity> mSharChdealBeens = new ArrayList<>();
+//    List<SharChdeals.DataEntity.DealsEntity> mSharChdealBeens = new ArrayList<>();
 
 
     List<HomeShop.DataEntity.ShopsEntity> mDataBeens = new ArrayList<>();

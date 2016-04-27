@@ -10,7 +10,7 @@ public class TestListFragment extends BaseRlvFragment {
 
 
     @Override
-    protected BaseRlvAdapter getRlvAdater() {
+    protected BaseRlvAdapter getRlvAdapter() {
         return null;
     }
 

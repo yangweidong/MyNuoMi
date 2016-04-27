@@ -46,7 +46,7 @@ public class HomeRlAdapter extends BaseRlvAdapter<HomeRlAdapter.HomeRlViewHolder
         holder.min_title.setText(mDealsEntities.get(position).getMin_title());
         holder.description.setText(mDealsEntities.get(position).getDescription());
         Uri uri = Uri.parse(mDealsEntities.get(position).getImage());
-//        holder.simpleDraweeView.setImageURI(uri);
+        holder.simpleDraweeView.setImageURI(uri);
     }
 
     @Override

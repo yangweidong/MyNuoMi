@@ -9,7 +9,7 @@ public class ApiUrl {
    public static final String CITYS = "http://apis.baidu.com/baidunuomi/openapi/cities";//糯米团单城市接口
    public static final String DISTRICTS = "http://apis.baidu.com/baidunuomi/openapi/districts";//糯米团单行政区接口
    public static final String CLASSIFY = "http://apis.baidu.com/baidunuomi/openapi/categories";//糯米团单分类信息
-   public static final String SEARCHDEALS = "http://apis.baidu.com/baidunuomi/openapi/searchdeals";//糯米团单分类信息
+   public static final String SEARCHDEALS = "http://apis.baidu.com/baidunuomi/openapi/searchdeals";//根据查询条件获相应团单信息
 
 
    public static final String SEARCHSHOPS = "http://apis.baidu.com/baidunuomi/openapi/searchshops";//根据查询条件获取查询的商户信息

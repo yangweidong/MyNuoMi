@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.onenews.Constants;
 import com.onenews.R;
 import com.onenews.activity.ClassIfySearchActivity;
 import com.onenews.adapter.HomeRlAdapter;
@@ -26,19 +28,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends BaseRlvFragment implements View.OnClickListener, HomeContract.View {
+
+//
+public class HomeFragment extends BaseRlvFragment implements View.OnClickListener, HomeContract
+        .View {
     XRecyclerView mHomeRl_View;
     HomeRlAdapter mHomeRl_Adapter;
     List<SharChdeals.DataEntity.DealsEntity> mHomeAdapterDatas = new ArrayList<>();
-
-
-
+    HomeContract.Presenter mPresenter;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private String mSelectedCity_ID = "100010000";//城市ID
@@ -72,8 +80,7 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
         params.put("page_size", mPage_size);
         params.put("is_reservation_required", mIs_reservation_required);
 
-
-        mPresenter.loadHomeData(ApiUrl.SEARCHDEALS, params);
+        mPresenter.refreshData(Constants.EVENT_REFRESH_DATA,ApiUrl.SEARCHDEALS, params);
     }
 
 
@@ -118,42 +125,14 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
         viewPager.setAdapter(new HomeViewPagerAdapter(mHomeViewPagerViews));
 
 
-
         return header;
     }
 
-//    @Override
-//    protected void initRelView(View view) {
-//        mHomeRl_Adapter.setOnItemClickListener(new HomeRlAdapter.HomeRlItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int postion) {
-//                Intent intent = new Intent(getActivity(), OrderDetailsActivity.class);
-//                String orderid = mHomeAdapterDatas.get(postion).getDeal_id();
-//                intent.putExtra("orderid", orderid);
-//                getActivity().startActivity(intent);
-//            }
-//        });
-//    }
-
-
     @Override
-    protected BaseRlvAdapter getRlvAdater() {
+    protected BaseRlvAdapter getRlvAdapter() {
         mHomeRl_Adapter = new HomeRlAdapter(mHomeAdapterDatas);
         return mHomeRl_Adapter;
     }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    HomeContract.Presenter mPresenter;
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
 
 
     @Override
@@ -178,11 +157,23 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
         mPresenter = presenter;
     }
 
+
     @Override
     public void showData(SharChdeals response) {
         mHomeAdapterDatas.clear();
         mHomeAdapterDatas.addAll(response.getData().getDeals());
-
         mHomeRl_Adapter.notifyDataSetChanged();
+        displayContentView();
+
+    }
+
+    @Override
+    public void onRefresh() {
+        Toast.makeText(getActivity(), "下拉刷新", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoadMore() {
+        Toast.makeText(getActivity(), "加载更多", Toast.LENGTH_SHORT).show();
     }
 }

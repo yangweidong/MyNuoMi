@@ -101,4 +101,6 @@ public class FlauntFragment extends BaseFragment<List<FlauntBean.DataEntity.Resu
     public void setPresenter(FlauntContract.Presenter presenter) {
         mPresenter = presenter;
     }
+
+
 }

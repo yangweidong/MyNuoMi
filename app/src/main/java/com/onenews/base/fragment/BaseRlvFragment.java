@@ -12,17 +12,15 @@ import com.onenews.widgets.recyclerview.XRecyclerView;
 /**
  * Created by yangweidong on 16/4/24.
  */
-public abstract class BaseRlvFragment extends BaseFragment {
+public abstract class BaseRlvFragment extends BaseFragment implements XRecyclerView
+        .LoadingListener {
     XRecyclerView mXRecyclerView;
-    //    ListFragment listFragment;
     BaseRlvAdapter mBaseRlvAdapter;
 
-    //    ListActivity listActivity;
     @Override
     protected int getLayoutId() {
         return R.layout.recyclerview;
     }
-
 
     @Override
     protected void initView(View view) {
@@ -33,17 +31,18 @@ public abstract class BaseRlvFragment extends BaseFragment {
         mXRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mXRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
 
-        mBaseRlvAdapter = getRlvAdater();
+        mBaseRlvAdapter = getRlvAdapter();
         mXRecyclerView.setAdapter(mBaseRlvAdapter);
-
-
         if (null != getHeader()) {
             mXRecyclerView.addHeaderView(getHeader());
         }
+
+
+        mXRecyclerView.setPullRefreshEnabled(true);
+        mXRecyclerView.setLoadingListener(this);
     }
 
-
-    protected abstract BaseRlvAdapter getRlvAdater();
+    protected abstract BaseRlvAdapter getRlvAdapter();
 
     /**
      * 获取adapter 获取条件为  onViewCreated 之后 和 覆盖getAdater() 并且返回正确的adapter
@@ -67,4 +66,13 @@ public abstract class BaseRlvFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onRefresh() {
+
+    }
+
+    @Override
+    public void onLoadMore() {
+
+    }
 }

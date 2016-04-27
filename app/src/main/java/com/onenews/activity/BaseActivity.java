@@ -1,5 +1,6 @@
 package com.onenews.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -68,9 +69,20 @@ public abstract class BaseActivity<T> extends AppCompatActivity implements BaseV
         }
     }
 
-    public void setToolbarTitle(String title) {
+    public void setActionbarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
+
+    /**
+     * 启动并关闭前一个
+     *
+     * @param clazz
+     */
+    protected void readyGoThenKill(Class<?> clazz) {
+        Intent intent = new Intent(this, clazz);
+        startActivity(intent);
+    }
+
 
     /**
      * 是否显示Toolbar,如果需要定义自己的Toolbar,复写该方法,返回false

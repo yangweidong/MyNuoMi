@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.onenews.R;
+import com.onenews.remodeling.widgets.MultiStateView;
+
 /**
  * Created by yangweidong on 16/1/13.
  */
@@ -20,11 +23,17 @@ public abstract class BaseFragment<T> extends Fragment {
 
     protected abstract void getData();
 
+    MultiStateView mMultiStateView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
     Bundle savedInstanceState) {
-        return inflater.inflate(getLayoutId(), container, false);
+
+        View rootview = inflater.inflate(R.layout.fragment_root, container, false);
+        mMultiStateView = (MultiStateView) rootview.findViewById(R.id.layout);
+        mMultiStateView.addView(View.inflate(getActivity(), getLayoutId(), null));
+        return rootview;
     }
 
     @Override
@@ -34,4 +43,34 @@ public abstract class BaseFragment<T> extends Fragment {
         initView(view);
         getData();
     }
+
+    /**
+     * 显示加载布局
+     */
+    protected void displayLoadingView() {
+        mMultiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+    }
+
+    /**
+     * 显示内容布局
+     */
+    protected void displayContentView() {
+        mMultiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+    }
+
+    /**
+     * 显示空布局
+     */
+    protected void displayEmptyView() {
+        mMultiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+    }
+
+    /**
+     * 显示错误布局
+     */
+    protected void displayErrorView() {
+        mMultiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+    }
+
+
 }
