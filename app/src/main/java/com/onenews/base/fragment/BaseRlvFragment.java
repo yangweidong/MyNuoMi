@@ -16,6 +16,10 @@ public abstract class BaseRlvFragment extends BaseFragment implements XRecyclerV
         .LoadingListener {
     XRecyclerView mXRecyclerView;
     BaseRlvAdapter mBaseRlvAdapter;
+    /**
+     * 页码
+     */
+    protected int PAGE_NUMBER = 1;
 
     @Override
     protected int getLayoutId() {

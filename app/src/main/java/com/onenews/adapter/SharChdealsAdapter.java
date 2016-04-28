@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenews.R;
-import com.onenews.bean.SharChdeals;
+import com.onenews.api.SharChdeals;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import java.util.List;
  * Created by yangweidong on 15/12/31.
  */
 public class SharChdealsAdapter extends RecyclerView.Adapter<SharChdealsAdapter.CityViewHolder> {
-    private  List<SharChdeals.DataEntity.DealsEntity> mCityBean;
+    private  List<SharChdeals.DealsEntity> mCityBean;
 
-    public SharChdealsAdapter(List<SharChdeals.DataEntity.DealsEntity> cityBean) {
+    public SharChdealsAdapter(List<SharChdeals.DealsEntity> cityBean) {
         this.mCityBean = cityBean;
 
     }

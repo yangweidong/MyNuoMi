@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenews.R;
+import com.onenews.api.SharChdeals;
 import com.onenews.base.BaseViewHolder;
 import com.onenews.base.adapter.BaseRlvAdapter;
-import com.onenews.bean.SharChdeals;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import java.util.List;
  * Created by yangweidong on 15/12/31.
  */
 public class HomeRlAdapter extends BaseRlvAdapter<HomeRlAdapter.HomeRlViewHolder> {
-    private List<SharChdeals.DataEntity.DealsEntity> mDealsEntities;
+    private List<SharChdeals.DealsEntity> mDealsEntities;
 
-    public HomeRlAdapter(List<SharChdeals.DataEntity.DealsEntity> dealsEntities) {
+    public HomeRlAdapter(List<SharChdeals.DealsEntity> dealsEntities) {
         this.mDealsEntities = dealsEntities;
 
     }

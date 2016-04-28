@@ -2,8 +2,9 @@ package com.onenews.home;
 
 import com.onenews.BasePresenter;
 import com.onenews.BaseView;
-import com.onenews.bean.SharChdeals;
+import com.onenews.api.SharChdeals;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Map;
 public interface HomeContract {
 
     interface View extends BaseView<Presenter> {
-        void showData(SharChdeals response);
+        void showData(List<SharChdeals.DealsEntity> response,int event_tag);
     }
 
     interface Presenter extends BasePresenter {

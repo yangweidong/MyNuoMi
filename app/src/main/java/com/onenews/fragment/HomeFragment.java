@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.onenews.Constants;
 import com.onenews.R;
@@ -16,12 +15,11 @@ import com.onenews.activity.ClassIfySearchActivity;
 import com.onenews.adapter.HomeRlAdapter;
 import com.onenews.adapter.HomeViewPagerAdapter;
 import com.onenews.api.ApiUrl;
+import com.onenews.api.SharChdeals;
 import com.onenews.base.adapter.BaseRlvAdapter;
 import com.onenews.base.fragment.BaseRlvFragment;
-import com.onenews.bean.SharChdeals;
 import com.onenews.home.HomeContract;
 import com.onenews.utils.Dip2Px;
-import com.onenews.widgets.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +30,8 @@ import java.util.Map;
 //
 public class HomeFragment extends BaseRlvFragment implements View.OnClickListener, HomeContract
         .View {
-    XRecyclerView mHomeRl_View;
-    HomeRlAdapter mHomeRl_Adapter;
-    List<SharChdeals.DataEntity.DealsEntity> mHomeAdapterDatas = new ArrayList<>();
+    HomeRlAdapter mHomeAdapter;
+    List<SharChdeals.DealsEntity> mHomeAdapterDatas = new ArrayList<SharChdeals.DealsEntity>();
     HomeContract.Presenter mPresenter;
 
     public static HomeFragment newInstance() {
@@ -46,7 +43,6 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
 
     @Override
     protected void initData() {
-
     }
 
     private String mSelectedCity_ID = "100010000";//城市ID
@@ -66,6 +62,8 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
 
     @Override
     protected void getData() {
+        displayContentView();
+
         Map<String, String> params = new HashMap<String, String>();
         params.put("city_id", mSelectedCity_ID);
         params.put("cat_ids", mCat_ids);
@@ -76,11 +74,11 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
         params.put("keyword", mkeyword);
         params.put("radius", mRadius);
         params.put("sort", mSort);
-        params.put("page", mPage);
+        params.put("page", PAGE_NUMBER + "");
         params.put("page_size", mPage_size);
         params.put("is_reservation_required", mIs_reservation_required);
 
-        mPresenter.refreshData(Constants.EVENT_REFRESH_DATA,ApiUrl.SEARCHDEALS, params);
+        mPresenter.refreshData(Constants.EVENT_REFRESH_DATA, ApiUrl.SEARCHDEALS, params);
     }
 
 
@@ -92,7 +90,7 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
     @Override
     protected View getHeader() {
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main_header,
-                mHomeRl_View, false);//new ViewPager(getActivity());//
+                getRecyclerView(), false);//new ViewPager(getActivity());//
         RecyclerView.LayoutParams headerParams = new RecyclerView.LayoutParams(RecyclerView
                 .LayoutParams.MATCH_PARENT, Dip2Px.dip2px(getActivity(), 200));
         header.setLayoutParams(headerParams);
@@ -130,8 +128,8 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
 
     @Override
     protected BaseRlvAdapter getRlvAdapter() {
-        mHomeRl_Adapter = new HomeRlAdapter(mHomeAdapterDatas);
-        return mHomeRl_Adapter;
+        mHomeAdapter = new HomeRlAdapter(mHomeAdapterDatas);
+        return mHomeAdapter;
     }
 
 
@@ -159,21 +157,58 @@ public class HomeFragment extends BaseRlvFragment implements View.OnClickListene
 
 
     @Override
-    public void showData(SharChdeals response) {
-        mHomeAdapterDatas.clear();
-        mHomeAdapterDatas.addAll(response.getData().getDeals());
-        mHomeRl_Adapter.notifyDataSetChanged();
-        displayContentView();
-
-    }
-
-    @Override
     public void onRefresh() {
-        Toast.makeText(getActivity(), "下拉刷新", Toast.LENGTH_SHORT).show();
+        //页码置1
+        PAGE_NUMBER = 1;
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("city_id", mSelectedCity_ID);
+        params.put("cat_ids", mCat_ids);
+        params.put("subcat_ids", mSubcat_ids);
+        params.put("district_ids", mDistrict_ids);
+        params.put("bizarea_ids", mBizarea_ids);
+        params.put("location", mLocation);
+        params.put("keyword", mkeyword);
+        params.put("radius", mRadius);
+        params.put("sort", mSort);
+        params.put("page", PAGE_NUMBER + "");
+        params.put("page_size", mPage_size);
+        params.put("is_reservation_required", mIs_reservation_required);
+        mPresenter.refreshData(Constants.EVENT_REFRESH_DATA, ApiUrl.SEARCHDEALS, params);
     }
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(getActivity(), "加载更多", Toast.LENGTH_SHORT).show();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("city_id", mSelectedCity_ID);
+        params.put("cat_ids", mCat_ids);
+        params.put("subcat_ids", mSubcat_ids);
+        params.put("district_ids", mDistrict_ids);
+        params.put("bizarea_ids", mBizarea_ids);
+        params.put("location", mLocation);
+        params.put("keyword", mkeyword);
+        params.put("radius", mRadius);
+        params.put("sort", mSort);
+        params.put("page", PAGE_NUMBER++ + "");
+        params.put("page_size", mPage_size);
+        params.put("is_reservation_required", mIs_reservation_required);
+
+
+        mPresenter.refreshData(Constants.EVENT_LOAD_MORE_DATA, ApiUrl.SEARCHDEALS, params);
+
+    }
+
+    @Override
+    public void showData(List<SharChdeals.DealsEntity> response, int event_tag) {
+        if (event_tag == Constants.EVENT_REFRESH_DATA) {
+            mHomeAdapterDatas.clear();
+            mHomeAdapterDatas.addAll(response);
+            mHomeAdapter.notifyDataSetChanged();
+            getRecyclerView().refreshComplete();
+        } else if (event_tag == Constants.EVENT_LOAD_MORE_DATA) {
+            mHomeAdapterDatas.addAll(response);
+            mHomeAdapter.notifyDataSetChanged();
+            getRecyclerView().loadMoreComplete();
+        }
     }
 }
